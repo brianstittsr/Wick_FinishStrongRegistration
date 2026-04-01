@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { RegistrationForm } from "@/components/registration-form"
 import { Settings } from "lucide-react"
 
 export default function ConferencePage() {
@@ -271,25 +272,114 @@ export default function ConferencePage() {
         </div>
       </div>
 
-      <div id="register" className="bg-[#F9F5EE] px-6 py-16">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-xs tracking-[0.18em] uppercase text-[#C9933A] font-semibold mb-2">Secure Your Spot</p>
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-[#1B2A4A] mb-4">Conference Registration</h2>
-          <div className="w-[50px] h-[3px] bg-[#C9933A] rounded mb-7"></div>
+      <div id="register" className="bg-[#F9F5EE] px-5 py-16">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-[#E8B96A] text-xs font-bold tracking-widest uppercase text-center mb-3">Secure Your Spot</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#1B2A4A] text-center mb-3 font-[family-name:var(--font-playfair)]">
+            Conference Registration
+          </h2>
+          <div className="w-20 h-1 bg-[#E8B96A] mx-auto mb-12"></div>
           
-          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-[#E8F5E9] border border-[#388E3C]/30 text-[#1B5E20] px-4 py-2 rounded-full text-sm font-bold mb-6">
-              ✅ No Registration Fee
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <RegistrationForm />
             </div>
-            
-            <div className="text-center py-12">
-              <p className="text-lg text-[#1B2A4A] mb-4">
-                Registration form will be integrated here with full functionality.
-              </p>
-              <p className="text-sm text-[#4A5568]">
-                The form will capture all attendee information, meal selections, and speaker preferences,<br />
-                then store them in the admin dashboard for tracking and recommendations.
-              </p>
+
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="font-bold text-[#1B2A4A] mb-4 text-lg">Event Details</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex gap-3">
+                    <span className="text-xl">📅</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Dates</strong>
+                      <span className="text-gray-600">Mon–Tue, May 4–5, 2026</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">🕡</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Daily Start</strong>
+                      <span className="text-gray-600">6:30 a.m. each morning</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">🏁</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Conference Ends</strong>
+                      <span className="text-gray-600">After breakfast, Tue. May 5</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">📍</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Venue</strong>
+                      <span className="text-gray-600">Atlantis Cove · One Casino Drive, Suite 40 · Paradise Island, Bahamas</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">🙏</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Opening Prayer</strong>
+                      <span className="text-gray-600">Bishop Earnest Sutton<br />Faithway Apostolic Church</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">💰</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Registration</strong>
+                      <span className="text-green-700 font-semibold">FREE</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">🍳</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Breakfast</strong>
+                      <span className="text-gray-600">$40.00/day · both days</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">🌟</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Beyond the Podium Lunch</strong>
+                      <span className="text-gray-600">$45.00 · Mon. May 4 only</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-xl">🍷</span>
+                    <div>
+                      <strong className="block text-[#1B2A4A]">Monday Dinner</strong>
+                      <span className="text-gray-600">On your own · 6:00 PM<br />Poop Deck or Atlantis Resort</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-[#1B2A4A] to-[#0F1B33] rounded-xl shadow-lg p-6 text-white">
+                <h3 className="font-bold text-[#E8B96A] mb-3 text-lg">💳 Meal Payment Deadline</h3>
+                <p className="text-sm text-white/90 leading-relaxed">
+                  All meal payments due by <strong className="text-[#E8B96A]">April 20, 2026</strong>.<br /><br />
+                  Mail to:<br />
+                  Dr. Gloria Frelix<br />
+                  301 Dogwood Trail<br />
+                  Elizabeth City, NC 27909<br /><br />
+                  <strong className="text-red-300">Money Order or Cashier&apos;s Check only</strong> — payable to Dr. Gloria Frelix. Cash and personal checks not accepted.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-[#1B3A2A] to-[#0D2218] rounded-xl shadow-lg p-6 text-white">
+                <h3 className="font-bold text-[#E8B96A] mb-3 text-lg">🌟 Beyond the Podium</h3>
+                <p className="text-sm text-white/90 leading-relaxed">
+                  Register early for the best chance at your preferred speaker table. Each table seats a small group for an intimate, personal conversation. Don&apos;t miss this unique opportunity.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="font-bold text-[#1B2A4A] mb-3 text-lg">Questions?</h3>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  Contact the conference coordinator using the information provided in your conference invitation. A confirmation will be sent after registration.
+                </p>
+              </div>
             </div>
           </div>
         </div>
