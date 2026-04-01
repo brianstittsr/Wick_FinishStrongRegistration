@@ -6,14 +6,17 @@ import { useConferenceStore } from "@/lib/store"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2 } from "lucide-react"
+import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save } from "lucide-react"
 import { toast } from "sonner"
 
 export default function AdminDashboard() {
   const { registrations, removeRegistration, clearRegistrations } = useConferenceStore()
   const [activeTab, setActiveTab] = useState("overview")
+  const [isSyncing, setIsSyncing] = useState(false)
 
   const stats = useMemo(() => {
+    const speakers = registrations.filter(r => r.registrationType === 'speaker').length
+    const attendees = registrations.filter(r => r.registrationType === 'attendee').length
     const mondayBreakfast = registrations.filter(r => r.bfast_mon).length
     const tuesdayBreakfast = registrations.filter(r => r.bfast_tue).length
     const lunch = registrations.filter(r => r.lunch).length
@@ -29,6 +32,8 @@ export default function AdminDashboard() {
 
     return {
       totalAttendees: registrations.length,
+      speakers,
+      attendees,
       mondayBreakfast,
       tuesdayBreakfast,
       lunch,
@@ -74,6 +79,56 @@ export default function AdminDashboard() {
     toast.success("Data exported successfully")
   }
 
+  const handleExportExcel = async () => {
+    try {
+      const response = await fetch('/api/export/excel')
+      const blob = await response.blob()
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `conference-registrations-${new Date().toISOString().split('T')[0]}.csv`
+      link.click()
+      toast.success("Excel/CSV exported successfully")
+    } catch (error) {
+      toast.error("Failed to export Excel/CSV")
+    }
+  }
+
+  const handleExportPDF = async () => {
+    try {
+      const response = await fetch('/api/export/pdf')
+      const blob = await response.blob()
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `conference-report-${new Date().toISOString().split('T')[0]}.html`
+      link.click()
+      toast.success("Report generated successfully - open the HTML file and print to PDF")
+    } catch (error) {
+      toast.error("Failed to generate report")
+    }
+  }
+
+  const handleSyncToFile = async () => {
+    setIsSyncing(true)
+    try {
+      const response = await fetch('/api/registrations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registrations)
+      })
+      if (response.ok) {
+        toast.success("Data synced to JSON file successfully")
+      } else {
+        toast.error("Failed to sync data")
+      }
+    } catch (error) {
+      toast.error("Failed to sync data")
+    } finally {
+      setIsSyncing(false)
+    }
+  }
+
   const handleClearAll = () => {
     if (confirm("Are you sure you want to delete all registrations? This cannot be undone.")) {
       clearRegistrations()
@@ -105,17 +160,43 @@ export default function AdminDashboard() {
       </nav>
 
       <div className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
           <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-blue-900 flex items-center gap-2">
                 <Users className="w-4 h-4" />
-                Total Attendees
+                Total
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-blue-900">{stats.totalAttendees}</div>
-              <p className="text-xs text-blue-700 mt-1">Registered participants</p>
+              <p className="text-xs text-blue-700 mt-1">All registrations</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-amber-900 flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                Speakers
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-amber-900">{stats.speakers}</div>
+              <p className="text-xs text-amber-700 mt-1">Presenting</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-teal-50 to-teal-100 border-teal-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-teal-900 flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                Attendees
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-teal-900">{stats.attendees}</div>
+              <p className="text-xs text-teal-700 mt-1">Participating</p>
             </CardContent>
           </Card>
 
@@ -211,16 +292,39 @@ export default function AdminDashboard() {
                   <CardDescription>Export or clear registration data</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button onClick={handleExportData} className="w-full" variant="outline">
-                    <Download className="w-4 h-4 mr-2" />
-                    Export All Data (JSON)
-                  </Button>
-                  <Button onClick={handleClearAll} className="w-full" variant="destructive">
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Clear All Registrations
-                  </Button>
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-gray-700">Export Options</p>
+                    <Button onClick={handleExportData} className="w-full" variant="outline">
+                      <Download className="w-4 h-4 mr-2" />
+                      Export All Data (JSON)
+                    </Button>
+                    <Button onClick={handleExportExcel} className="w-full" variant="outline">
+                      <FileSpreadsheet className="w-4 h-4 mr-2" />
+                      Export to Excel/CSV
+                    </Button>
+                    <Button onClick={handleExportPDF} className="w-full" variant="outline">
+                      <FileText className="w-4 h-4 mr-2" />
+                      Generate Complete Report (PDF)
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-2 pt-2 border-t">
+                    <p className="text-sm font-semibold text-gray-700">File Management</p>
+                    <Button onClick={handleSyncToFile} className="w-full" variant="outline" disabled={isSyncing}>
+                      <Save className="w-4 h-4 mr-2" />
+                      {isSyncing ? "Syncing..." : "Sync to JSON File"}
+                    </Button>
+                  </div>
+                  
+                  <div className="pt-2 border-t">
+                    <Button onClick={handleClearAll} className="w-full" variant="destructive">
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Clear All Registrations
+                    </Button>
+                  </div>
+                  
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
-                    <strong>Note:</strong> Data is stored locally in your browser. Export regularly to prevent data loss.
+                    <strong>Note:</strong> Data is stored locally in your browser. Use &quot;Sync to JSON File&quot; to save to server. Export regularly to prevent data loss.
                   </div>
                 </CardContent>
               </Card>
@@ -316,10 +420,19 @@ export default function AdminDashboard() {
                     {registrations.map((reg) => (
                       <div key={reg.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
                         <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h4 className="font-semibold text-lg text-[#1B2A4A]">
-                              {reg.fname} {reg.lname}
-                            </h4>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h4 className="font-semibold text-lg text-[#1B2A4A]">
+                                {reg.fname} {reg.lname}
+                              </h4>
+                              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                                reg.registrationType === 'speaker' 
+                                  ? 'bg-amber-100 text-amber-800' 
+                                  : 'bg-teal-100 text-teal-800'
+                              }`}>
+                                {reg.registrationType === 'speaker' ? '🎤 Speaker' : '👤 Attendee'}
+                              </span>
+                            </div>
                             <p className="text-sm text-gray-600">{reg.email}</p>
                             {reg.phone && <p className="text-sm text-gray-600">{reg.phone}</p>}
                             {reg.org && <p className="text-sm text-gray-500 mt-1">{reg.org}</p>}

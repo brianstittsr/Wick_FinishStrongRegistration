@@ -22,6 +22,7 @@ export function RegistrationForm() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [showSpeakerSelect, setShowSpeakerSelect] = useState(false)
   const [formData, setFormData] = useState({
+    registrationType: "" as "attendee" | "speaker" | "",
     fname: "",
     lname: "",
     org: "",
@@ -61,12 +62,18 @@ export function RegistrationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    if (!formData.registrationType) {
+      toast.error("Please select if you are registering as an Attendee or Speaker")
+      return
+    }
+
     if (!formData.fname || !formData.lname || !formData.email) {
       toast.error("Please fill in all required fields")
       return
     }
 
     addRegistration({
+      registrationType: formData.registrationType as 'attendee' | 'speaker',
       fname: formData.fname,
       lname: formData.lname,
       org: formData.org,
@@ -101,6 +108,7 @@ export function RegistrationForm() {
     setTimeout(() => {
       setShowSuccess(false)
       setFormData({
+        registrationType: "",
         fname: "",
         lname: "",
         org: "",
@@ -147,6 +155,49 @@ export function RegistrationForm() {
       <div className="bg-green-100 border-2 border-green-600 rounded-lg px-4 py-2 inline-block">
         <span className="text-green-900 font-semibold">✅ No Registration Fee</span>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-[#1B2A4A]">Registration Type *</CardTitle>
+          <p className="text-sm text-gray-600 mt-2">
+            Please select whether you are registering as an attendee or speaker.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+              <input
+                type="radio"
+                name="registrationType"
+                value="attendee"
+                checked={formData.registrationType === "attendee"}
+                onChange={handleInputChange}
+                className="w-5 h-5"
+                required
+              />
+              <div>
+                <span className="font-semibold text-gray-900 block">Attendee</span>
+                <span className="text-sm text-gray-600">I am attending the conference</span>
+              </div>
+            </label>
+            <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+              <input
+                type="radio"
+                name="registrationType"
+                value="speaker"
+                checked={formData.registrationType === "speaker"}
+                onChange={handleInputChange}
+                className="w-5 h-5"
+                required
+              />
+              <div>
+                <span className="font-semibold text-gray-900 block">Speaker</span>
+                <span className="text-sm text-gray-600">I am presenting at the conference</span>
+              </div>
+            </label>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

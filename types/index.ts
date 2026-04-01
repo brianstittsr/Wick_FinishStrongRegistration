@@ -1,5 +1,6 @@
 export interface RegistrationData {
   id: string
+  registrationType: 'attendee' | 'speaker'
   fname: string
   lname: string
   email: string
