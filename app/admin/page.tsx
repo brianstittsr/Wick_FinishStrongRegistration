@@ -69,7 +69,10 @@ export default function AdminDashboard() {
     })
 
     const paymentStats = registrations.reduce((acc, r) => {
-      const mealCost = (r.bfast_mon ? 40 : 0) + (r.bfast_tue ? 40 : 0) + (r.lunch ? 45 : 0)
+      // Speakers don't pay for meals, only attendees
+      const mealCost = r.registrationType === 'speaker' 
+        ? 0 
+        : (r.bfast_mon ? 40 : 0) + (r.bfast_tue ? 40 : 0) + (r.lunch ? 45 : 0)
       acc.totalOwed += mealCost
       if (r.paymentReceived) {
         acc.totalReceived += (r.paymentAmount || 0)
@@ -305,6 +308,10 @@ export default function AdminDashboard() {
   }
 
   const calculateMealCost = (registration: RegistrationData): number => {
+    // Speakers don't pay for meals, only attendees
+    if (registration.registrationType === 'speaker') {
+      return 0
+    }
     return (registration.bfast_mon ? 40 : 0) + 
            (registration.bfast_tue ? 40 : 0) + 
            (registration.lunch ? 45 : 0)
