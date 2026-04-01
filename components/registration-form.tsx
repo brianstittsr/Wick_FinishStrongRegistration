@@ -38,7 +38,48 @@ export function RegistrationForm() {
     vision_screening: false,
     pref_spk: "",
     alt_spk: "",
-    referral: ""
+    referral: "",
+    credentials: "",
+    presentationTitle: "",
+    timeSlot_7_8: false,
+    timeSlot_8_9: false,
+    timeSlot_9_10: false,
+    timeSlot_10_11: false,
+    timeSlot_11_12: false,
+    timeSlotNotes: "",
+    ownLaptop: false,
+    conferenceLaptop: false,
+    projectorScreen: false,
+    hdmiConnection: false,
+    handheldMic: false,
+    lavalierMic: false,
+    podiumMic: false,
+    audioForVideo: false,
+    internetAccess: false,
+    laptopType: "",
+    avNotes: "",
+    noFoodAllergies: false,
+    hasFoodAllergies: false,
+    allergyDetails: "",
+    vegetarian: false,
+    vegan: false,
+    glutenFree: false,
+    dairyFree: false,
+    nutFree: false,
+    kosher: false,
+    halal: false,
+    dietaryOther: "",
+    mobilityNone: false,
+    mobilityCane: false,
+    mobilityWalker: false,
+    mobilityManualWheelchair: false,
+    mobilityPowerWheelchair: false,
+    mobilityServiceAnimal: false,
+    mobilityOther: "",
+    noSupportPerson: false,
+    hasSupportPerson: false,
+    supportPersonRole: "",
+    additionalInfo: ""
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -89,7 +130,48 @@ export function RegistrationForm() {
       vision_screening: formData.vision_screening,
       pref_spk: formData.pref_spk,
       alt_spk: formData.alt_spk,
-      referral: formData.referral
+      referral: formData.referral,
+      credentials: formData.credentials,
+      presentationTitle: formData.presentationTitle,
+      timeSlot_7_8: formData.timeSlot_7_8,
+      timeSlot_8_9: formData.timeSlot_8_9,
+      timeSlot_9_10: formData.timeSlot_9_10,
+      timeSlot_10_11: formData.timeSlot_10_11,
+      timeSlot_11_12: formData.timeSlot_11_12,
+      timeSlotNotes: formData.timeSlotNotes,
+      ownLaptop: formData.ownLaptop,
+      conferenceLaptop: formData.conferenceLaptop,
+      projectorScreen: formData.projectorScreen,
+      hdmiConnection: formData.hdmiConnection,
+      handheldMic: formData.handheldMic,
+      lavalierMic: formData.lavalierMic,
+      podiumMic: formData.podiumMic,
+      audioForVideo: formData.audioForVideo,
+      internetAccess: formData.internetAccess,
+      laptopType: formData.laptopType,
+      avNotes: formData.avNotes,
+      noFoodAllergies: formData.noFoodAllergies,
+      hasFoodAllergies: formData.hasFoodAllergies,
+      allergyDetails: formData.allergyDetails,
+      vegetarian: formData.vegetarian,
+      vegan: formData.vegan,
+      glutenFree: formData.glutenFree,
+      dairyFree: formData.dairyFree,
+      nutFree: formData.nutFree,
+      kosher: formData.kosher,
+      halal: formData.halal,
+      dietaryOther: formData.dietaryOther,
+      mobilityNone: formData.mobilityNone,
+      mobilityCane: formData.mobilityCane,
+      mobilityWalker: formData.mobilityWalker,
+      mobilityManualWheelchair: formData.mobilityManualWheelchair,
+      mobilityPowerWheelchair: formData.mobilityPowerWheelchair,
+      mobilityServiceAnimal: formData.mobilityServiceAnimal,
+      mobilityOther: formData.mobilityOther,
+      noSupportPerson: formData.noSupportPerson,
+      hasSupportPerson: formData.hasSupportPerson,
+      supportPersonRole: formData.supportPersonRole,
+      additionalInfo: formData.additionalInfo
     })
 
     try {
@@ -124,7 +206,48 @@ export function RegistrationForm() {
         vision_screening: false,
         pref_spk: "",
         alt_spk: "",
-        referral: ""
+        referral: "",
+        credentials: "",
+        presentationTitle: "",
+        timeSlot_7_8: false,
+        timeSlot_8_9: false,
+        timeSlot_9_10: false,
+        timeSlot_10_11: false,
+        timeSlot_11_12: false,
+        timeSlotNotes: "",
+        ownLaptop: false,
+        conferenceLaptop: false,
+        projectorScreen: false,
+        hdmiConnection: false,
+        handheldMic: false,
+        lavalierMic: false,
+        podiumMic: false,
+        audioForVideo: false,
+        internetAccess: false,
+        laptopType: "",
+        avNotes: "",
+        noFoodAllergies: false,
+        hasFoodAllergies: false,
+        allergyDetails: "",
+        vegetarian: false,
+        vegan: false,
+        glutenFree: false,
+        dairyFree: false,
+        nutFree: false,
+        kosher: false,
+        halal: false,
+        dietaryOther: "",
+        mobilityNone: false,
+        mobilityCane: false,
+        mobilityWalker: false,
+        mobilityManualWheelchair: false,
+        mobilityPowerWheelchair: false,
+        mobilityServiceAnimal: false,
+        mobilityOther: "",
+        noSupportPerson: false,
+        hasSupportPerson: false,
+        supportPersonRole: "",
+        additionalInfo: ""
       })
       setShowSpeakerSelect(false)
     }, 5000)
@@ -300,6 +423,330 @@ export function RegistrationForm() {
           </div>
         </CardContent>
       </Card>
+
+      {formData.registrationType === "speaker" && (
+        <>
+          <Card className="border-2 border-amber-300 bg-amber-50/30">
+            <CardHeader>
+              <CardTitle className="text-[#1B2A4A] flex items-center gap-2">
+                🎤 Speaker Information — Name & Credentials
+              </CardTitle>
+              <p className="text-sm text-gray-600 mt-2">
+                Please provide your exact name and credentials as they should appear in all conference materials.
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label htmlFor="credentials">Credentials (e.g., Ph.D., M.D., MHA, FASTRO)</Label>
+                <Input
+                  id="credentials"
+                  name="credentials"
+                  value={formData.credentials}
+                  onChange={handleInputChange}
+                  placeholder="Ph.D., M.D., MHA"
+                />
+              </div>
+              <div>
+                <Label htmlFor="presentationTitle">Presentation Title (exact wording)</Label>
+                <Input
+                  id="presentationTitle"
+                  name="presentationTitle"
+                  value={formData.presentationTitle}
+                  onChange={handleInputChange}
+                  placeholder="Your presentation title"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-amber-300 bg-amber-50/30">
+            <CardHeader>
+              <CardTitle className="text-[#1B2A4A]">⏰ Preferred Morning Presentation Time</CardTitle>
+              <p className="text-sm text-gray-600 mt-2">
+                Check all time slots that work for you.
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="timeSlot_7_8"
+                  checked={formData.timeSlot_7_8}
+                  onChange={handleInputChange}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">7:00 – 8:00 AM</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="timeSlot_8_9"
+                  checked={formData.timeSlot_8_9}
+                  onChange={handleInputChange}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">8:00 – 9:00 AM</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="timeSlot_9_10"
+                  checked={formData.timeSlot_9_10}
+                  onChange={handleInputChange}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">9:00 – 10:00 AM</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="timeSlot_10_11"
+                  checked={formData.timeSlot_10_11}
+                  onChange={handleInputChange}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">10:00 – 11:00 AM</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="timeSlot_11_12"
+                  checked={formData.timeSlot_11_12}
+                  onChange={handleInputChange}
+                  className="w-4 h-4"
+                />
+                <span className="text-sm">11:00 AM – 12:00 PM</span>
+              </label>
+              <div className="mt-4">
+                <Label htmlFor="timeSlotNotes">Notes (e.g., not available before a specific time)</Label>
+                <Input
+                  id="timeSlotNotes"
+                  name="timeSlotNotes"
+                  value={formData.timeSlotNotes}
+                  onChange={handleInputChange}
+                  placeholder="Any scheduling constraints"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-amber-300 bg-amber-50/30">
+            <CardHeader>
+              <CardTitle className="text-[#1B2A4A]">🎥 Audio-Visual Needs</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-gray-700">Equipment</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="ownLaptop" checked={formData.ownLaptop} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">I will use my own laptop</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="conferenceLaptop" checked={formData.conferenceLaptop} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Conference-provided laptop</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="projectorScreen" checked={formData.projectorScreen} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Projector & screen</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="hdmiConnection" checked={formData.hdmiConnection} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">HDMI connection</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="handheldMic" checked={formData.handheldMic} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Handheld microphone</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="lavalierMic" checked={formData.lavalierMic} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Lavalier microphone</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="podiumMic" checked={formData.podiumMic} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Podium microphone</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="audioForVideo" checked={formData.audioForVideo} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Audio for video/music</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="internetAccess" checked={formData.internetAccess} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Internet access during session</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="laptopType">Laptop type (Mac / PC) and any additional AV needs</Label>
+                <Input
+                  id="laptopType"
+                  name="laptopType"
+                  value={formData.laptopType}
+                  onChange={handleInputChange}
+                  placeholder="Mac, PC, or other AV requirements"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-amber-300 bg-amber-50/30">
+            <CardHeader>
+              <CardTitle className="text-[#1B2A4A]">🍽️ Food & Dietary Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="noFoodAllergies" checked={formData.noFoodAllergies} onChange={handleInputChange} className="w-4 h-4" />
+                  <span className="text-sm font-semibold">No food allergies</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="hasFoodAllergies" checked={formData.hasFoodAllergies} onChange={handleInputChange} className="w-4 h-4" />
+                  <span className="text-sm font-semibold">Food allergies (list below)</span>
+                </label>
+              </div>
+              <div>
+                <Label htmlFor="allergyDetails">Allergies or foods/ingredients strictly not allowed (medical, religious, or ethical)</Label>
+                <Input
+                  id="allergyDetails"
+                  name="allergyDetails"
+                  value={formData.allergyDetails}
+                  onChange={handleInputChange}
+                  placeholder="List any allergies or restrictions"
+                />
+              </div>
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-gray-700">Dietary Preferences</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="vegetarian" checked={formData.vegetarian} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Vegetarian</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="vegan" checked={formData.vegan} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Vegan</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="glutenFree" checked={formData.glutenFree} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Gluten-free</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="dairyFree" checked={formData.dairyFree} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Dairy-free</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="nutFree" checked={formData.nutFree} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Nut-free</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="kosher" checked={formData.kosher} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Kosher</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="halal" checked={formData.halal} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Halal</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="dietaryOther">Other dietary needs</Label>
+                <Input
+                  id="dietaryOther"
+                  name="dietaryOther"
+                  value={formData.dietaryOther}
+                  onChange={handleInputChange}
+                  placeholder="Any other dietary requirements"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-amber-300 bg-amber-50/30">
+            <CardHeader>
+              <CardTitle className="text-[#1B2A4A]">♿ Accessibility & Assistance</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-gray-700">Mobility or assistance equipment (check all that apply)</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="mobilityNone" checked={formData.mobilityNone} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">None needed</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="mobilityCane" checked={formData.mobilityCane} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Cane</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="mobilityWalker" checked={formData.mobilityWalker} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Walker</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="mobilityManualWheelchair" checked={formData.mobilityManualWheelchair} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Manual wheelchair</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="mobilityPowerWheelchair" checked={formData.mobilityPowerWheelchair} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Power wheelchair/scooter</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="mobilityServiceAnimal" checked={formData.mobilityServiceAnimal} onChange={handleInputChange} className="w-4 h-4" />
+                    <span className="text-sm">Service animal</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="mobilityOther">Other mobility or accessibility needs (ramp to stage, seating on stage, etc.)</Label>
+                <Input
+                  id="mobilityOther"
+                  name="mobilityOther"
+                  value={formData.mobilityOther}
+                  onChange={handleInputChange}
+                  placeholder="Describe any accessibility needs"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="noSupportPerson" checked={formData.noSupportPerson} onChange={handleInputChange} className="w-4 h-4" />
+                  <span className="text-sm">No support person attending with me</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="hasSupportPerson" checked={formData.hasSupportPerson} onChange={handleInputChange} className="w-4 h-4" />
+                  <span className="text-sm">Support person attending (role below)</span>
+                </label>
+              </div>
+              <div>
+                <Label htmlFor="supportPersonRole">Support person&apos;s role, if applicable</Label>
+                <Input
+                  id="supportPersonRole"
+                  name="supportPersonRole"
+                  value={formData.supportPersonRole}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Personal assistant, caregiver"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-amber-300 bg-amber-50/30">
+            <CardHeader>
+              <CardTitle className="text-[#1B2A4A]">📝 Additional Information</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Label htmlFor="additionalInfo">Anything else we should know to support your comfort and best presentation?</Label>
+              <Input
+                id="additionalInfo"
+                name="additionalInfo"
+                value={formData.additionalInfo}
+                onChange={handleInputChange}
+                placeholder="Any other information or special requests"
+              />
+              <p className="text-xs text-gray-600 mt-2">
+                Questions? Contact Thea Monet at [email protected] or (919) 696-0206. Text messages are seen immediately.
+              </p>
+            </CardContent>
+          </Card>
+        </>
+      )}
 
       <Card>
         <CardHeader>
