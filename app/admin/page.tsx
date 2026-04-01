@@ -68,6 +68,18 @@ export default function AdminDashboard() {
       }
     })
 
+    const paymentStats = registrations.reduce((acc, r) => {
+      const mealCost = (r.bfast_mon ? 40 : 0) + (r.bfast_tue ? 40 : 0) + (r.lunch ? 45 : 0)
+      acc.totalOwed += mealCost
+      if (r.paymentReceived) {
+        acc.totalReceived += (r.paymentAmount || 0)
+        acc.paidCount += 1
+      } else if (mealCost > 0) {
+        acc.unpaidCount += 1
+      }
+      return acc
+    }, { totalOwed: 0, totalReceived: 0, paidCount: 0, unpaidCount: 0 })
+
     return {
       totalAttendees: registrations.length,
       speakers,
@@ -77,7 +89,8 @@ export default function AdminDashboard() {
       lunch,
       dinner,
       visionScreening,
-      speakerPreferences
+      speakerPreferences,
+      ...paymentStats
     }
   }, [registrations])
 
@@ -263,6 +276,24 @@ export default function AdminDashboard() {
     toast.success("Speaker created successfully")
   }
 
+  const calculateMealCost = (registration: RegistrationData): number => {
+    return (registration.bfast_mon ? 40 : 0) + 
+           (registration.bfast_tue ? 40 : 0) + 
+           (registration.lunch ? 45 : 0)
+  }
+
+  const handleTogglePayment = (registration: RegistrationData) => {
+    const mealCost = calculateMealCost(registration)
+    const updatedReg = {
+      ...registration,
+      paymentReceived: !registration.paymentReceived,
+      paymentAmount: !registration.paymentReceived ? mealCost : registration.paymentAmount,
+      paymentDate: !registration.paymentReceived ? new Date().toISOString() : registration.paymentDate
+    }
+    updateRegistration(registration.id, updatedReg)
+    toast.success(updatedReg.paymentReceived ? "Payment marked as received" : "Payment marked as pending")
+  }
+
   const handleDeleteRegistration = (id: string) => {
     if (confirm("Are you sure you want to delete this registration?")) {
       removeRegistration(id)
@@ -389,6 +420,58 @@ export default function AdminDashboard() {
             <CardContent>
               <div className="text-3xl font-bold text-orange-900">{stats.tuesdayBreakfast}</div>
               <p className="text-xs text-orange-700 mt-1">May 5 attendees</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-emerald-900 flex items-center gap-2">
+                💰 Total Owed
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-emerald-900">${stats.totalOwed}</div>
+              <p className="text-xs text-emerald-700 mt-1">All meal payments</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-green-900 flex items-center gap-2">
+                ✅ Received
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-green-900">${stats.totalReceived}</div>
+              <p className="text-xs text-green-700 mt-1">{stats.paidCount} payments confirmed</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-red-900 flex items-center gap-2">
+                ⏳ Pending
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-red-900">${stats.totalOwed - stats.totalReceived}</div>
+              <p className="text-xs text-red-700 mt-1">{stats.unpaidCount} awaiting payment</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-cyan-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-cyan-900 flex items-center gap-2">
+                📊 Collection Rate
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-cyan-900">
+                {stats.totalOwed > 0 ? Math.round((stats.totalReceived / stats.totalOwed) * 100) : 0}%
+              </div>
+              <p className="text-xs text-cyan-700 mt-1">Payment completion</p>
             </CardContent>
           </Card>
         </div>
@@ -623,6 +706,46 @@ export default function AdminDashboard() {
                             Vision: {reg.vision_screening ? '✓' : '✗'}
                           </div>
                         </div>
+                        
+                        {calculateMealCost(reg) > 0 && (
+                          <div className={`mt-3 p-3 rounded-lg border-2 ${
+                            reg.paymentReceived 
+                              ? 'bg-green-50 border-green-300' 
+                              : 'bg-yellow-50 border-yellow-300'
+                          }`}>
+                            <div className="flex items-center justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-sm font-semibold">
+                                    💰 Meal Payment: ${calculateMealCost(reg)}
+                                  </span>
+                                  <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                                    reg.paymentReceived 
+                                      ? 'bg-green-200 text-green-900' 
+                                      : 'bg-yellow-200 text-yellow-900'
+                                  }`}>
+                                    {reg.paymentReceived ? '✅ Paid' : '⏳ Pending'}
+                                  </span>
+                                </div>
+                                {reg.paymentReceived && reg.paymentDate && (
+                                  <p className="text-xs text-gray-600">
+                                    Received: {new Date(reg.paymentDate).toLocaleDateString()}
+                                  </p>
+                                )}
+                              </div>
+                              <Button
+                                size="sm"
+                                onClick={() => handleTogglePayment(reg)}
+                                className={reg.paymentReceived 
+                                  ? 'bg-yellow-600 hover:bg-yellow-700' 
+                                  : 'bg-green-600 hover:bg-green-700'
+                                }
+                              >
+                                {reg.paymentReceived ? 'Mark Unpaid' : 'Confirm Payment'}
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                         
                         {reg.pref_spk && (
                           <div className="mt-3 text-sm bg-blue-50 border border-blue-200 rounded p-2">

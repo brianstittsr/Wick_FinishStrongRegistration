@@ -61,6 +61,12 @@ export interface RegistrationData {
   hasSupportPerson?: boolean
   supportPersonRole?: string
   additionalInfo?: string
+  
+  // Payment tracking
+  paymentReceived?: boolean
+  paymentAmount?: number
+  paymentDate?: string
+  paymentNotes?: string
 }
 
 export interface ConferenceStats {

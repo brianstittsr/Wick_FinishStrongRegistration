@@ -171,7 +171,11 @@ export function RegistrationForm() {
       noSupportPerson: formData.noSupportPerson,
       hasSupportPerson: formData.hasSupportPerson,
       supportPersonRole: formData.supportPersonRole,
-      additionalInfo: formData.additionalInfo
+      additionalInfo: formData.additionalInfo,
+      paymentReceived: false,
+      paymentAmount: 0,
+      paymentDate: '',
+      paymentNotes: ''
     })
 
     try {
