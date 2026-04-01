@@ -168,20 +168,48 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleReloadSpeakers = async () => {
+    try {
+      const response = await fetch('/api/registrations')
+      if (response.ok) {
+        const { data } = await response.json()
+        if (data && Array.isArray(data)) {
+          const speakers = data.filter(reg => reg.registrationType === 'speaker')
+          const currentSpeakerIds = new Set(
+            registrations.filter(r => r.registrationType === 'speaker').map(r => r.id)
+          )
+          
+          speakers.forEach(speaker => {
+            if (!currentSpeakerIds.has(speaker.id)) {
+              addRegistration(speaker)
+            }
+          })
+          
+          toast.success(`Reloaded ${speakers.length} speakers from server`)
+        }
+      }
+    } catch (error) {
+      console.error('Failed to reload speakers:', error)
+      toast.error("Failed to reload speakers")
+    }
+  }
+
   const handleSyncToFile = async () => {
     setIsSyncing(true)
     try {
       const response = await fetch('/api/registrations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(registrations)
+        body: JSON.stringify({ registrations })
       })
+      
       if (response.ok) {
-        toast.success("Data synced to JSON file successfully")
+        toast.success("Data synced to server successfully")
       } else {
         toast.error("Failed to sync data")
       }
     } catch (error) {
+      console.error('Sync error:', error)
       toast.error("Failed to sync data")
     } finally {
       setIsSyncing(false)
@@ -771,13 +799,23 @@ export default function AdminDashboard() {
                     </CardTitle>
                     <CardDescription>Manage all conference speakers and their information</CardDescription>
                   </div>
-                  <Button
-                    onClick={handleCreateNewSpeaker}
-                    className="bg-amber-600 hover:bg-amber-700"
-                  >
-                    <UserPlus className="w-4 h-4 mr-2" />
-                    Add New Speaker
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={handleReloadSpeakers}
+                      variant="outline"
+                      className="border-amber-300 text-amber-700 hover:bg-amber-50"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      Reload Speakers
+                    </Button>
+                    <Button
+                      onClick={handleCreateNewSpeaker}
+                      className="bg-amber-600 hover:bg-amber-700"
+                    >
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Add New Speaker
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
