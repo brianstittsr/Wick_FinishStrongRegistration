@@ -6,9 +6,10 @@ import { useConferenceStore } from "@/lib/store"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save, Edit, UserPlus, Mic2 } from "lucide-react"
+import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save, Edit, UserPlus, Mic2, LogOut } from "lucide-react"
 import { toast } from "sonner"
 import { EditRegistrationDialog } from "@/components/edit-registration-dialog"
+import { LoginForm } from "@/components/login-form"
 import { RegistrationData } from "@/types"
 
 export default function AdminDashboard() {
@@ -18,6 +19,14 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [editingRegistration, setEditingRegistration] = useState<RegistrationData | null>(null)
   const [isCreatingNewSpeaker, setIsCreatingNewSpeaker] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const authStatus = localStorage.getItem('adminAuthenticated')
+    if (authStatus === 'true') {
+      setIsAuthenticated(true)
+    }
+  }, [])
 
   useEffect(() => {
     const loadServerData = async () => {
@@ -261,6 +270,21 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleLogin = () => {
+    localStorage.setItem('adminAuthenticated', 'true')
+    setIsAuthenticated(true)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminAuthenticated')
+    setIsAuthenticated(false)
+    toast.success("Logged out successfully")
+  }
+
+  if (!isAuthenticated) {
+    return <LoginForm onLogin={handleLogin} />
+  }
+
   return (
     <div className="min-h-screen bg-[#F9F5EE]">
       <nav className="bg-[#1B2A4A] px-6 py-4 flex items-center justify-between">
@@ -269,12 +293,23 @@ export default function AdminDashboard() {
             Conference Admin Dashboard
           </h1>
         </div>
-        <Link href="/">
-          <Button variant="outline" size="sm" className="bg-[#E8B96A]/10 border-[#E8B96A]/50 text-[#E8B96A] hover:bg-[#E8B96A]/20">
-            <Home className="w-4 h-4 mr-2" />
-            Back to Conference
+        <div className="flex items-center gap-3">
+          <Link href="/">
+            <Button variant="outline" size="sm" className="bg-[#E8B96A]/10 border-[#E8B96A]/50 text-[#E8B96A] hover:bg-[#E8B96A]/20">
+              <Home className="w-4 h-4 mr-2" />
+              Back to Conference
+            </Button>
+          </Link>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleLogout}
+            className="bg-red-500/10 border-red-500/50 text-red-400 hover:bg-red-500/20"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
           </Button>
-        </Link>
+        </div>
       </nav>
 
       <div className="container mx-auto px-6 py-8">
