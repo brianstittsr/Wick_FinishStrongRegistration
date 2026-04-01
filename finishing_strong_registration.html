@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finishing Strong in the Age of Artificial Intelligence — May 4–5, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:#F9F5EE; color:#0F1B33; }
+
+/* ── JUMP LINKS ── */
+.jump-nav {
+  background:#1B2A4A; padding:12px 20px;
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+}
+.jump-nav a {
+  color:#E8B96A; text-decoration:none; font-size:0.82rem;
+  font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  padding:6px 16px; border:1px solid rgba(232,185,106,0.35);
+  border-radius:20px; transition:background 0.2s;
+}
+.jump-nav a:hover { background:rgba(232,185,106,0.15); }
+
+/* ── COVER ── */
+.cover {
+  background:linear-gradient(160deg,#0F1B33 0%,#1B3A5C 55%,#0D2233 100%);
+  padding:60px 24px 50px; text-align:center;
+}
+.cover-badge {
+  display:inline-block; border:1px solid rgba(232,185,106,0.5);
+  color:#E8B96A; font-size:0.72rem; letter-spacing:0.18em;
+  text-transform:uppercase; padding:5px 18px; border-radius:30px;
+  margin-bottom:24px; background:rgba(232,185,106,0.07);
+}
+.cover-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,6vw,3.8rem); font-weight:900;
+  color:#fff; line-height:1.15; margin-bottom:10px;
+}
+.cover-title em { color:#E8B96A; font-style:italic; }
+.cover-sub {
+  font-size:clamp(0.95rem,2.5vw,1.25rem); color:rgba(255,255,255,0.65);
+  margin-bottom:30px; line-height:1.5;
+}
+.cover-divider {
+  width:70px; height:3px;
+  background:linear-gradient(90deg,transparent,#C9933A,transparent);
+  margin:0 auto 28px;
+}
+.chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:32px; }
+.chip {
+  background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.88); padding:8px 14px; border-radius:8px;
+  font-size:clamp(0.72rem,2vw,0.84rem); display:flex; align-items:center; gap:7px; line-height:1.4;
+}
+.cover-btns { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:28px; }
+.btn-gold {
+  background:linear-gradient(135deg,#C9933A,#E8B96A); color:#0F1B33;
+  padding:13px 30px; border-radius:8px; font-weight:700;
+  font-size:clamp(0.85rem,2vw,0.98rem); text-decoration:none;
+  display:inline-block; letter-spacing:0.04em;
+}
+.btn-white {
+  border:2px solid rgba(255,255,255,0.35); color:rgba(255,255,255,0.9);
+  padding:11px 26px; border-radius:8px; font-weight:500;
+  font-size:clamp(0.85rem,2vw,0.98rem); text-decoration:none; display:inline-block;
+}
+.free-banner {
+  display:inline-block; background:rgba(27,94,32,0.85);
+  border:1px solid rgba(104,197,104,0.4); color:#A5D6A7;
+  padding:9px 22px; border-radius:30px; font-size:clamp(0.7rem,1.8vw,0.82rem);
+  font-weight:600; line-height:1.65; text-align:center; max-width:95%;
+}
+
+/* ── SECTIONS ── */
+.section { padding:clamp(44px,7vw,80px) clamp(18px,5vw,60px); }
+.section-inner { max-width:940px; margin:0 auto; }
+.section-tag { font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9933A; font-weight:600; margin-bottom:8px; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,4.5vw,2.5rem); font-weight:700; color:#1B2A4A; line-height:1.2; margin-bottom:14px; }
+.section-rule { width:50px; height:3px; background:#C9933A; border-radius:2px; margin-bottom:28px; }
+.section-dark { background:#1B2A4A; }
+.section-dark .section-tag { color:#E8B96A; }
+.section-dark .section-title { color:#fff; }
+.section-white { background:#fff; }
+.section-cream { background:#F9F5EE; }
+
+/* ── WELCOME ── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,56px); align-items:start; }
+@media(max-width:680px){ .two-col { grid-template-columns:1fr; } }
+.welcome-text { font-size:clamp(1rem,2.2vw,1.12rem); line-height:1.9; color:#1A1A2E; font-weight:400; }
+.welcome-text p+p { margin-top:16px; }
+.sig { margin-top:28px; padding-top:20px; border-top:1px solid #EEE8DC; }
+.sig-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:#1B2A4A; font-style:italic; }
+.sig-title { font-size:0.78rem; color:#2D3748; margin-top:3px; line-height:1.5; }
+
+.glance-box { background:#F9F5EE; border-left:4px solid #C9933A; border-radius:0 12px 12px 0; padding:22px 20px; }
+.glance-label { font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#C9933A; font-weight:600; margin-bottom:12px; }
+.glance-item { display:flex; gap:11px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #EEE8DC; }
+.glance-item:last-child { border-bottom:none; }
+.gi-icon { font-size:1.2rem; flex-shrink:0; margin-top:1px; }
+.gi-text strong { display:block; font-size:0.82rem; font-weight:600; color:#1B2A4A; }
+.gi-text span { font-size:0.77rem; color:#2D3748; line-height:1.45; }
+
+.pay-box { margin-top:18px; background:#FFF3E0; border:1px solid rgba(230,130,0,0.35); border-radius:10px; padding:15px 17px; font-size:0.81rem; color:#4E2600; line-height:1.65; }
+.pay-box strong { color:#BF360C; }
+
+/* ── SPEAKERS ── */
+.spk-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; margin-top:28px; }
+.spk-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:22px 18px; }
+.spk-avatar { width:62px; height:62px; border-radius:50%; background:linear-gradient(135deg,#2A7B8C,#1B2A4A); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:1.25rem; color:#E8B96A; font-weight:700; margin-bottom:13px; border:2px solid rgba(232,185,106,0.3); }
+.spk-name { font-family:'Playfair Display',serif; font-size:0.98rem; font-weight:700; color:#fff; margin-bottom:3px; }
+.spk-creds { font-size:0.74rem; color:#E8B96A; margin-bottom:8px; font-weight:500; }
+.spk-topic { font-size:0.8rem; color:rgba(255,255,255,0.62); line-height:1.5; font-style:italic; border-top:1px solid rgba(255,255,255,0.1); padding-top:10px; margin-top:9px; }
+.spk-time { display:inline-block; margin-top:10px; background:rgba(201,147,58,0.15); border:1px solid rgba(201,147,58,0.3); color:#E8B96A; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:600; }
+.spk-day { display:inline-block; margin-top:6px; margin-left:5px; background:rgba(42,123,140,0.2); border:1px solid rgba(42,123,140,0.35); color:#7DD4E0; padding:3px 9px; border-radius:20px; font-size:0.7rem; font-weight:600; }
+.spk-times-detail { margin-top:9px; font-size:0.74rem; color:rgba(255,255,255,0.5); line-height:1.6; }
+
+.schedule-box { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:18px 20px; margin-top:22px; }
+.schedule-box h4 { font-family:'Playfair Display',serif; color:#E8B96A; font-size:0.92rem; margin-bottom:12px; }
+.srow { display:flex; gap:12px; align-items:flex-start; font-size:0.8rem; color:rgba(255,255,255,0.7); line-height:1.45; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+.srow:last-child { border-bottom:none; }
+.stime { color:#E8B96A; font-weight:600; min-width:115px; flex-shrink:0; }
+
+.podium-note { margin-top:22px; background:rgba(42,123,140,0.15); border:1px solid rgba(42,123,140,0.35); border-radius:12px; padding:18px 22px; display:flex; gap:13px; align-items:flex-start; }
+.pn-icon { font-size:1.7rem; flex-shrink:0; }
+.pn-text h4 { font-family:'Playfair Display',serif; color:#fff; font-size:0.97rem; margin-bottom:5px; }
+.pn-text p { color:rgba(255,255,255,0.68); font-size:0.82rem; line-height:1.6; }
+
+/* ── REGISTRATION ── */
+.reg-layout { display:grid; grid-template-columns:1fr 300px; gap:clamp(20px,3vw,44px); align-items:start; }
+@media(max-width:820px){ .reg-layout { grid-template-columns:1fr; } }
+
+.reg-form { background:#fff; border-radius:16px; padding:clamp(20px,4vw,40px); box-shadow:0 8px 40px rgba(27,42,74,0.14); }
+.free-tag { display:inline-flex; align-items:center; gap:7px; background:#E8F5E9; border:1px solid rgba(56,142,60,0.3); color:#1B5E20; padding:7px 16px; border-radius:30px; font-size:0.83rem; font-weight:700; margin-bottom:22px; }
+
+.fs { margin-bottom:28px; }
+.fs-title { font-family:'Playfair Display',serif; font-size:0.97rem; font-weight:700; color:#1B2A4A; padding-bottom:8px; border-bottom:2px solid #EEE8DC; margin-bottom:15px; }
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media(max-width:520px){ .frow { grid-template-columns:1fr; } }
+.fg { display:flex; flex-direction:column; gap:4px; margin-bottom:12px; }
+.fg label { font-size:0.75rem; font-weight:600; color:#4A5568; letter-spacing:0.05em; text-transform:uppercase; }
+.fg input,.fg select,.fg textarea { border:1.5px solid #DDE2EC; border-radius:8px; padding:10px 12px; font-size:0.89rem; font-family:'DM Sans',sans-serif; color:#0F1B33; background:#F9F5EE; outline:none; width:100%; transition:border-color 0.2s; }
+.fg input:focus,.fg select:focus,.fg textarea:focus { border-color:#2A7B8C; background:#fff; }
+
+.meal-box { background:linear-gradient(135deg,#EBF6F9,#D4EEF2); border:1.5px solid rgba(42,123,140,0.3); border-radius:12px; padding:16px 16px 13px; margin-bottom:14px; }
+.meal-box h4 { font-family:'Playfair Display',serif; font-size:0.92rem; font-weight:700; color:#2A7B8C; margin-bottom:9px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.mprice { font-size:0.72rem; background:#2A7B8C; color:#fff; padding:2px 8px; border-radius:12px; font-weight:700; }
+.mdate { font-size:0.7rem; background:rgba(27,42,74,0.1); color:#1B2A4A; padding:2px 8px; border-radius:12px; font-weight:600; border:1px solid rgba(27,42,74,0.18); }
+.meal-desc { font-size:0.8rem; color:#4A5568; line-height:1.55; margin-bottom:10px; }
+.chk-label { display:flex; align-items:center; gap:9px; cursor:pointer; font-size:0.84rem; color:#0F1B33; padding:8px 11px; border:1.5px solid #DDE2EC; border-radius:8px; margin-bottom:7px; background:#fff; }
+.chk-label input[type=checkbox] { accent-color:#2A7B8C; width:15px; height:15px; flex-shrink:0; }
+.radio-grp { display:flex; flex-direction:column; gap:7px; margin-bottom:11px; }
+.rad-label { display:flex; align-items:center; gap:9px; cursor:pointer; font-size:0.84rem; color:#0F1B33; padding:8px 11px; border:1.5px solid #DDE2EC; border-radius:8px; background:#fff; }
+.rad-label input[type=radio] { accent-color:#2A7B8C; width:15px; height:15px; }
+.spk-sel { margin-top:11px; }
+.spk-sel-lbl { font-size:0.72rem; font-weight:600; color:#2A7B8C; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px; display:block; }
+.spk-sel-note { font-size:0.71rem; color:#4A5568; font-style:italic; margin-top:4px; line-height:1.5; }
+
+.dinner-box { background:linear-gradient(135deg,#F3E5F5,#E8D5F0); border:1.5px solid rgba(106,27,154,0.25); border-radius:12px; padding:16px 16px 13px; margin-bottom:14px; }
+.dinner-box h4 { font-family:'Playfair Display',serif; font-size:0.92rem; font-weight:700; color:#6A1B9A; margin-bottom:9px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+
+.cash-box { background:#FFF8E1; border:1px solid rgba(255,160,0,0.4); border-radius:10px; padding:13px 15px; font-size:0.8rem; color:#4E3200; line-height:1.6; margin-top:11px; }
+.cash-box strong { color:#BF360C; }
+.needs-box { background:#FFFDE7; border:1px solid rgba(245,167,17,0.35); border-radius:8px; padding:12px 14px; font-size:0.8rem; color:#5D4037; line-height:1.55; }
+
+.sub-btn { width:100%; padding:14px; background:linear-gradient(135deg,#1B2A4A,#2A5080); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:0.97rem; font-weight:700; letter-spacing:0.05em; cursor:pointer; margin-top:7px; }
+
+/* Sidebar */
+.sidebar { display:flex; flex-direction:column; gap:15px; }
+.scard { background:#fff; border-radius:14px; padding:18px; box-shadow:0 4px 20px rgba(27,42,74,0.09); }
+.scard-title { font-family:'Playfair Display',serif; font-size:0.9rem; font-weight:700; color:#1B2A4A; margin-bottom:11px; padding-bottom:8px; border-bottom:1px solid #EEE8DC; }
+.si { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid #EEE8DC; align-items:flex-start; }
+.si:last-child { border-bottom:none; }
+.si-icon { font-size:1.05rem; flex-shrink:0; margin-top:2px; }
+.si-text strong { display:block; font-size:0.77rem; font-weight:600; color:#1B2A4A; }
+.si-text span { font-size:0.74rem; color:#4A5568; line-height:1.4; }
+.hcard { background:linear-gradient(135deg,#1B2A4A,#1B3A5C); border-radius:14px; padding:18px; }
+.hcard h4 { font-family:'Playfair Display',serif; font-size:0.92rem; color:#E8B96A; margin-bottom:7px; }
+.hcard p { font-size:0.78rem; color:rgba(255,255,255,0.72); line-height:1.6; }
+
+/* Success */
+.success { display:none; background:#E8F5E9; border:1.5px solid rgba(56,142,60,0.4); border-radius:10px; padding:18px 22px; text-align:center; margin-top:14px; }
+.success h4 { color:#1B5E20; font-size:1rem; margin-bottom:5px; }
+.success p { color:#2E7D32; font-size:0.84rem; line-height:1.65; }
+
+/* Footer */
+footer { background:#0F1B33; color:rgba(255,255,255,0.5); text-align:center; padding:32px 20px; font-size:0.78rem; line-height:1.75; }
+footer strong { color:#E8B96A; }
+</style>
+</head>
+<body>
+
+<!-- JUMP NAV -->
+<div class="jump-nav">
+  <a href="#cover">🏠 Home</a>
+  <a href="#welcome">📖 Welcome</a>
+  <a href="#speakers">🎤 Speakers</a>
+  <a href="#register">📋 Register</a>
+</div>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-badge">✦ Conference · Paradise Island, Bahamas · May 4–5, 2026 ✦</div>
+  <h1 class="cover-title">Finishing Strong<br>in the <em>Age of Artificial Intelligence</em></h1>
+  <p class="cover-sub">Wisdom, Purpose &amp; Human Connection in a Changing World</p>
+  <div class="cover-divider"></div>
+  <div class="chips">
+    <div class="chip">📅 May 4–5, 2026</div>
+    <div class="chip">📍 Atlantis Cove · One Casino Drive, Suite 40 · Paradise Island, Bahamas</div>
+    <div class="chip">🕡 Sessions begin 6:30 a.m. each morning</div>
+    <div class="chip">🏁 Concludes after breakfast, Tue. May 5</div>
+  </div>
+  <div class="cover-btns">
+    <a href="#register" class="btn-gold">Register Now — Free</a>
+    <a href="#speakers" class="btn-white">View Speakers</a>
+  </div>
+  <div class="free-banner">
+    ✅ No Registration Fee &nbsp;·&nbsp; Continental Breakfast $40/day &nbsp;·&nbsp; Beyond the Podium Lunch $45 (Mon. May 4)<br>
+    Mon. Dinner on your own · 6:00 PM · Poop Deck, Nassau — or dine at the Atlantis Resort
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="section section-white" id="welcome">
+  <div class="section-inner">
+    <p class="section-tag">A Message from the Organizers</p>
+    <h2 class="section-title">Welcome to the Conference</h2>
+    <div class="section-rule"></div>
+    <div class="two-col">
+      <div>
+        <div class="welcome-text">
+          <p>Friend and Colleague,</p>
+          <p>We are delighted to welcome you to <strong>Finishing Strong in the Age of Artificial Intelligence</strong> — a two-day gathering on the beautiful shores of Paradise Island, Bahamas, designed for those who believe that experience, wisdom, and human connection matter more than ever in a world being reshaped by technology.</p>
+          <p>We are honored to have <strong>Bishop Earnest Sutton</strong> of Faithway Apostolic Church in Elizabeth City, North Carolina open our program in prayer.</p>
+          <p>Artificial intelligence is not simply a tool for the young or the technical. It is a force that touches every stage of life, every profession, and every community — including healthcare, which sits at the very heart of this year's program. We have assembled an extraordinary panel of physicians and scholars who will help us understand how AI is transforming the practice of medicine in America and around the world.</p>
+          <p>Our sessions begin each morning at 6:30 a.m. On Monday evening, May 4, we invite you to dine on your own — either at the renowned Poop Deck Restaurant on East Bay Street in Nassau, or at one of the many wonderful restaurants at the Atlantis Resort. The conference concludes following breakfast on Tuesday, May 5th.</p>
+          <p>Come ready to learn, to ask questions, and to finish strong. We look forward to spending these two days with you.</p>
+        </div>
+        <div class="sig">
+          <div class="sig-name">The Conference Planning Committee</div>
+          <div class="sig-title">Finishing Strong in the Age of AI · Paradise Island, Bahamas · May 4–5, 2026</div>
+        </div>
+      </div>
+      <div>
+        <div class="glance-box">
+          <div class="glance-label">Conference at a Glance</div>
+          <div class="glance-item"><div class="gi-icon">🙏</div><div class="gi-text"><strong>Opening Prayer</strong><span>Bishop Earnest Sutton<br>Faithway Apostolic Church<br>Elizabeth City, North Carolina</span></div></div>
+          <div class="glance-item"><div class="gi-icon">📅</div><div class="gi-text"><strong>Dates</strong><span>Monday–Tuesday, May 4–5, 2026</span></div></div>
+          <div class="glance-item"><div class="gi-icon">🕡</div><div class="gi-text"><strong>Daily Start Time</strong><span>6:30 a.m. each morning</span></div></div>
+          <div class="glance-item"><div class="gi-icon">📍</div><div class="gi-text"><strong>Venue</strong><span>Atlantis Cove, One Casino Drive, Suite 40, Paradise Island, Bahamas</span></div></div>
+          <div class="glance-item"><div class="gi-icon">🍳</div><div class="gi-text"><strong>Continental Breakfast</strong><span>Both days · $40 per day · begins 6:30 a.m.</span></div></div>
+          <div class="glance-item"><div class="gi-icon">🌟</div><div class="gi-text"><strong>Beyond the Podium Lunch</strong><span>Mon. May 4 · Sit with a speaker · $45</span></div></div>
+          <div class="glance-item"><div class="gi-icon">🍷</div><div class="gi-text"><strong>Monday Dinner — On Your Own</strong><span>6:00 PM · Poop Deck, E Bay St, Nassau — or dine at the Atlantis Resort</span></div></div>
+          <div class="glance-item"><div class="gi-icon">🏁</div><div class="gi-text"><strong>Conference Ends</strong><span>Following breakfast, Tue. May 5</span></div></div>
+          <div class="glance-item"><div class="gi-icon">🆓</div><div class="gi-text"><strong>Registration Fee</strong><span style="color:#1B5E20;font-weight:600;">FREE</span></div></div>
+        </div>
+        <div class="pay-box">
+          <strong>💳 Meal Payment Deadline: April 20, 2026</strong><br>
+          All meal payments must be received by <strong>April 20, 2026</strong> and forwarded to:<br><br>
+          <strong>Dr. Gloria Frelix</strong><br>
+          301 Dogwood Trail · Elizabeth City, NC 27909<br><br>
+          <strong>Payment by Money Order or Cashier's Check only</strong> — made payable to Dr. Gloria Frelix. Cash and personal checks will not be accepted.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPEAKERS -->
+<div class="section section-dark" id="speakers">
+  <div class="section-inner">
+    <p class="section-tag">Featured Presentations · Monday, May 4, 2026</p>
+    <h2 class="section-title">Featured Speakers</h2>
+    <div class="section-rule"></div>
+    <p style="color:rgba(255,255,255,0.62);font-size:0.88rem;max-width:640px;line-height:1.7;">Six distinguished physicians and scholars explore how artificial intelligence is transforming healthcare across America and the world. Five morning sessions begin at 6:30 a.m., followed by an afternoon session with Dr. Timothy C. Summers beginning at 1:30 PM — all on Monday, May 4.</p>
+
+    <div class="spk-grid">
+
+      <div class="spk-card">
+        <div class="spk-avatar">MB</div>
+        <div class="spk-name">Monique Barbour, M.D., MHA</div>
+        <div class="spk-creds">Medicine · Visual Health</div>
+        <div class="spk-topic">How AI Has Impacted the Treatment of Visual Health in America</div>
+        <span class="spk-time">Session 1</span><span class="spk-day">Mon. May 4</span>
+        <div style="margin-top:10px;background:rgba(232,185,106,0.12);border:1px solid rgba(232,185,106,0.3);border-radius:8px;padding:8px 10px;font-size:0.76rem;color:#E8B96A;line-height:1.55;">
+          👁️ <strong style="color:#E8B96A;">Free Vision Screenings</strong><br>
+          Dr. Barbour will offer complimentary vision screenings at the conference. Sign up on the registration form.
+        </div>
+      </div>
+
+      <div class="spk-card">
+        <div class="spk-avatar">CG</div>
+        <div class="spk-name">Christopher Griffin, M.D.</div>
+        <div class="spk-creds">Medicine · Pediatric Care</div>
+        <div class="spk-topic">How AI Has Impacted the Practice of Pediatric Care in America</div>
+        <span class="spk-time">Session 2</span><span class="spk-day">Mon. May 4</span>
+      </div>
+
+      <div class="spk-card">
+        <div class="spk-avatar">MR</div>
+        <div class="spk-name">Mack Roach III, M.D., Ph.D., FASTRO</div>
+        <div class="spk-creds">Medicine · Male Health</div>
+        <div class="spk-topic">How Artificial Intelligence Has Impacted Male Health in America</div>
+        <span class="spk-time">Session 3</span><span class="spk-day">Mon. May 4</span>
+      </div>
+
+      <div class="spk-card">
+        <div class="spk-avatar">GS</div>
+        <div class="spk-name">George L. Saunders, M.D.</div>
+        <div class="spk-creds">Medicine · Geriatric Health</div>
+        <div class="spk-topic">How A.I. Has Impacted the Practice of Geriatric Health in America</div>
+        <span class="spk-time">Session 4</span><span class="spk-day">Mon. May 4</span>
+      </div>
+
+      <div class="spk-card">
+        <div class="spk-avatar">EG</div>
+        <div class="spk-name">Ericka Griffin, M.D.</div>
+        <div class="spk-creds">Medicine · Women's Health</div>
+        <div class="spk-topic">How AI Has Impacted the Practice of Women's Health in America</div>
+        <span class="spk-time">Session 5</span><span class="spk-day">Mon. May 4</span>
+      </div>
+
+      <div class="spk-card">
+        <div class="spk-avatar">TS</div>
+        <div class="spk-name">Timothy C. Summers, Ph.D., VP, CIO</div>
+        <div class="spk-creds">Technology &amp; Global Health Policy</div>
+        <div class="spk-topic">How AI Is Changing the Delivery of Health Care in the World Now and Beyond</div>
+        <span class="spk-time">Session 6 · Afternoon</span><span class="spk-day">Mon. May 4</span>
+        <div class="spk-times-detail">
+          📍 1:30 – 3:15 PM · Main Presentation<br>
+          ☕ 3:15 – 3:30 PM · Short Break<br>
+          📍 3:30 – 4:30 PM · Summary &amp; Wrap-Up
+        </div>
+      </div>
+
+    </div>
+
+    <div class="schedule-box">
+      <h4>📋 Conference Schedule — Monday, May 4, 2026</h4>
+      <div class="srow"><span class="stime">6:30 AM</span><span>Continental Breakfast ($40) · Opening Prayer — Bishop Earnest Sutton, Faithway Apostolic Church · Sessions begin</span></div>
+      <div class="srow"><span class="stime">Morning</span><span>Sessions 1–5 · Dr. Barbour, Dr. Christopher Griffin, Dr. Roach, Dr. Saunders, Dr. Ericka Griffin</span></div>
+      <div class="srow"><span class="stime">TBD</span><span>👁️ Free Vision Screenings — Dr. Monique Barbour, M.D., MHA (sign up on registration form)</span></div>
+      <div class="srow"><span class="stime">Midday</span><span>Beyond the Podium Lunch ($45) — sit with a morning speaker</span></div>
+      <div class="srow"><span class="stime">1:30 – 3:15 PM</span><span>Session 6 · Dr. Timothy C. Summers, Ph.D., VP, CIO — Main Presentation</span></div>
+      <div class="srow"><span class="stime">3:15 – 3:30 PM</span><span>Short Break</span></div>
+      <div class="srow"><span class="stime">3:30 – 4:30 PM</span><span>Dr. Summers — Summary &amp; Wrap-Up</span></div>
+      <div class="srow"><span class="stime">6:00 PM</span><span>Dinner on your own · Poop Deck Restaurant, E Bay St, Nassau — or dine at the Atlantis Resort</span></div>
+    </div>
+
+    <div class="schedule-box" style="margin-top:14px;">
+      <h4>📋 Conference Schedule — Tuesday, May 5, 2026</h4>
+      <div class="srow"><span class="stime">6:30 AM</span><span>Continental Breakfast ($40) · Conference concludes following breakfast</span></div>
+    </div>
+
+    <div class="podium-note">
+      <div class="pn-icon">🌟</div>
+      <div class="pn-text">
+        <h4>Beyond the Podium — Lunch with a Speaker (Monday, May 4)</h4>
+        <p>Register early and request to be seated at a morning speaker's table during the 1-hour lunch ($45). Seating is limited and filled first-come, first-served. Ask questions, share ideas, and connect beyond the stage. Select your speaker preference on the registration form below.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTRATION -->
+<div class="section section-cream" id="register">
+  <div class="section-inner">
+    <p class="section-tag">Secure Your Spot</p>
+    <h2 class="section-title">Conference Registration</h2>
+    <div class="section-rule"></div>
+    <div class="reg-layout">
+
+      <div class="reg-form" id="regWrap">
+        <div class="free-tag">✅ No Registration Fee</div>
+        <form id="regForm" action="https://formspree.io/f/mbdpyrop" method="POST" onsubmit="submitForm(event)" novalidate>
+
+          <div class="fs">
+            <div class="fs-title">1 — Attendee Information</div>
+            <div class="frow">
+              <div class="fg"><label>First Name *</label><input type="text" name="fname" placeholder="First name" required></div>
+              <div class="fg"><label>Last Name *</label><input type="text" name="lname" placeholder="Last name" required></div>
+            </div>
+            <div class="fg"><label>Organization / Employer</label><input type="text" name="org" placeholder="Organization"></div>
+            <div class="fg"><label>Job Title / Role</label><input type="text" name="jobtitle" placeholder="Your role"></div>
+            <div class="fg"><label>Email Address *</label><input type="email" name="email" placeholder="your@email.com" required></div>
+            <div class="fg"><label>Phone Number</label><input type="tel" name="phone" placeholder="(___) ___-____"></div>
+            <div class="frow">
+              <div class="fg"><label>City</label><input type="text" name="city" placeholder="City"></div>
+              <div class="fg"><label>State / ZIP</label><input type="text" name="zip" placeholder="State, ZIP"></div>
+            </div>
+          </div>
+
+          <div class="fs">
+            <div class="fs-title">2 — Meal Reservations</div>
+            <p style="font-size:0.79rem;color:#4A5568;margin-bottom:13px;line-height:1.55;">Select all meals you plan to attend so we can reserve your seat. <strong>Seats cannot be guaranteed without advance selection.</strong></p>
+
+            <div class="meal-box">
+              <h4>🍳 Continental Breakfast <span class="mprice">$40.00</span> <span class="mdate">Mon. May 4</span></h4>
+              <p class="meal-desc">Available at 6:30 a.m. Monday, May 4 before the morning sessions begin.</p>
+              <label class="chk-label"><input type="checkbox" name="bfast_mon"> Yes — I will attend breakfast on Monday, May 4 ($40.00)</label>
+            </div>
+
+            <div class="meal-box">
+              <h4>🌟 Beyond the Podium Lunch <span class="mprice">$45.00</span> <span class="mdate">Mon. May 4</span></h4>
+              <p class="meal-desc">Sit at a morning speaker's table during this exclusive 1-hour lunch. <strong>Early registrants</strong> may request their preferred speaker. Seating is limited — first-come, first-served.</p>
+              <div class="radio-grp">
+                <label class="rad-label"><input type="radio" name="lunch" value="yes" onchange="toggleSpk(true)"> Yes — I will attend the Beyond the Podium Lunch ($45.00)</label>
+                <label class="rad-label"><input type="radio" name="lunch" value="no" onchange="toggleSpk(false)"> No — I will not attend lunch</label>
+              </div>
+              <div class="spk-sel" id="spkSel" style="display:none;">
+                <span class="spk-sel-lbl">Request Your Speaker Table</span>
+                <div class="fg" style="margin-bottom:8px;">
+                  <label>Preferred Speaker</label>
+                  <select name="pref_spk">
+                    <option value="">— Select a speaker —</option>
+                    <option>Monique Barbour, M.D., MHA — Visual Health</option>
+                    <option>Christopher Griffin, M.D. — Pediatric Care</option>
+                    <option>Mack Roach III, M.D., Ph.D., FASTRO — Male Health</option>
+                    <option>George L. Saunders, M.D. — Geriatric Health</option>
+                    <option>Ericka Griffin, M.D. — Women's Health</option>
+                    <option>Timothy C. Summers, Ph.D., VP, CIO — Global Health &amp; AI</option>
+                  </select>
+                </div>
+                <div class="fg" style="margin-bottom:4px;">
+                  <label>Alternate Speaker Choice</label>
+                  <select name="alt_spk">
+                    <option value="">— Select an alternate —</option>
+                    <option>Monique Barbour, M.D., MHA — Visual Health</option>
+                    <option>Christopher Griffin, M.D. — Pediatric Care</option>
+                    <option>Mack Roach III, M.D., Ph.D., FASTRO — Male Health</option>
+                    <option>George L. Saunders, M.D. — Geriatric Health</option>
+                    <option>Ericka Griffin, M.D. — Women's Health</option>
+                    <option>Timothy C. Summers, Ph.D., VP, CIO — Global Health &amp; AI</option>
+                  </select>
+                </div>
+                <p class="spk-sel-note">⚑ Requests honored while seats remain. Table assignment included in your confirmation.</p>
+              </div>
+            </div>
+
+            <div class="dinner-box">
+              <h4>🍷 Monday Dinner — On Your Own <span class="mdate" style="background:rgba(106,27,154,0.1);color:#6A1B9A;border-color:rgba(106,27,154,0.2);">Mon. May 4 · 6:00 PM</span></h4>
+              <p class="meal-desc">Dinner is on your own. Join the group at the <strong>Poop Deck Restaurant</strong>, E Bay St, Nassau — or choose from the many dining options at the <strong>Atlantis Resort</strong>. Make your own reservation directly. Select below to coordinate the group heading to the Poop Deck.</p>
+              <label class="chk-label" style="border-color:rgba(106,27,154,0.2);"><input type="checkbox" name="dinner"> Yes — I plan to dine at the Poop Deck on Monday evening</label>
+            </div>
+
+            <div class="meal-box">
+              <h4>🍳 Continental Breakfast <span class="mprice">$40.00</span> <span class="mdate">Tue. May 5</span></h4>
+              <p class="meal-desc">Available at 6:30 a.m. Tuesday, May 5. The conference concludes following this breakfast.</p>
+              <label class="chk-label"><input type="checkbox" name="bfast_tue"> Yes — I will attend breakfast on Tuesday, May 5 ($40.00)</label>
+            </div>
+
+            <div class="cash-box">
+              <strong>💳 Meal Payment Deadline: April 20, 2026</strong><br>
+              All meal payments must be received by <strong>April 20, 2026</strong> and forwarded to:<br><br>
+              <strong>Dr. Gloria Frelix</strong> · 301 Dogwood Trail · Elizabeth City, NC 27909<br><br>
+              <strong>Payment must be made by Money Order or Cashier's Check only.</strong> Please make payable to <strong>Dr. Gloria Frelix</strong>. Cash and personal checks will not be accepted. Payment must be submitted in advance by the deadline.
+            </div>
+          </div>
+
+          <div class="fs">
+            <div class="fs-title">3 — Free Vision Screening by Dr. Barbour</div>
+            <div class="meal-box" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:rgba(27,94,32,0.3);">
+              <h4 style="color:#1B5E20;">👁️ Complimentary Vision Screening <span class="mprice" style="background:#1B5E20;">FREE</span></h4>
+              <p class="meal-desc">Dr. Monique Barbour, M.D., MHA will offer <strong>free vision screenings</strong> to conference attendees. Space is limited — please indicate below if you would like to participate so we can schedule your appointment.</p>
+              <label class="chk-label" style="border-color:rgba(27,94,32,0.3);">
+                <input type="checkbox" name="vision_screening"> Yes — I would like a free vision screening with Dr. Barbour
+              </label>
+            </div>
+          </div>
+
+          <div class="fs">
+            <div class="fs-title">4 — How Did You Hear About Us?</div>
+            <div class="fg">
+              <select name="referral">
+                <option value="">— Please select —</option>
+                <option>Email / Newsletter</option>
+                <option>Colleague / Word of Mouth</option>
+                <option>Social Media</option>
+                <option>Organization Website</option>
+                <option>Flyer / Printed Material</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="fs">
+            <div class="fs-title">5 — Special Needs &amp; Food Choices</div>
+            <div class="needs-box">
+              <strong>📋 A separate form will be provided</strong> to collect information regarding special needs and dietary/food preferences. That form will be attached to your registration. Please complete both forms so we can accommodate you fully.
+            </div>
+          </div>
+
+          <button type="submit" class="sub-btn">Submit Registration →</button>
+        </form>
+        <div class="success" id="successMsg">
+          <h4>🎉 Registration Received!</h4>
+          <p>Thank you for registering for <strong>Finishing Strong in the Age of AI</strong> — May 4–5, 2026, Paradise Island, Bahamas.<br><br>
+          If you selected meals, please mail payment to <strong>Dr. Gloria Frelix, 301 Dogwood Trail, Elizabeth City, NC 27909</strong> by <strong>April 20, 2026</strong>. <strong>Cash will not be accepted.</strong> Your Beyond the Podium table assignment (if applicable) will be included in your confirmation.</p>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="scard">
+          <div class="scard-title">Event Details</div>
+          <div class="si"><div class="si-icon">📅</div><div class="si-text"><strong>Dates</strong><span>Mon–Tue, May 4–5, 2026</span></div></div>
+          <div class="si"><div class="si-icon">🕡</div><div class="si-text"><strong>Daily Start</strong><span>6:30 a.m. each morning</span></div></div>
+          <div class="si"><div class="si-icon">🏁</div><div class="si-text"><strong>Conference Ends</strong><span>After breakfast, Tue. May 5</span></div></div>
+          <div class="si"><div class="si-icon">📍</div><div class="si-text"><strong>Venue</strong><span>Atlantis Cove · One Casino Drive, Suite 40 · Paradise Island, Bahamas</span></div></div>
+          <div class="si"><div class="si-icon">🙏</div><div class="si-text"><strong>Opening Prayer</strong><span>Bishop Earnest Sutton<br>Faithway Apostolic Church</span></div></div>
+          <div class="si"><div class="si-icon">💰</div><div class="si-text"><strong>Registration</strong><span style="color:#1B5E20;font-weight:600;">FREE</span></div></div>
+          <div class="si"><div class="si-icon">🍳</div><div class="si-text"><strong>Breakfast</strong><span>$40.00/day · both days</span></div></div>
+          <div class="si"><div class="si-icon">🌟</div><div class="si-text"><strong>Beyond the Podium Lunch</strong><span>$45.00 · Mon. May 4 only</span></div></div>
+          <div class="si"><div class="si-icon">🍷</div><div class="si-text"><strong>Monday Dinner</strong><span>On your own · 6:00 PM<br>Poop Deck or Atlantis Resort</span></div></div>
+        </div>
+        <div class="hcard">
+          <h4>💳 Meal Payment Deadline</h4>
+          <p>All meal payments due by <strong style="color:#E8B96A;">April 20, 2026</strong>.<br><br>Mail to:<br>Dr. Gloria Frelix<br>301 Dogwood Trail<br>Elizabeth City, NC 27909<br><br><strong style="color:#ffb3b3;">Money Order or Cashier's Check only</strong> — payable to Dr. Gloria Frelix. Cash and personal checks not accepted.</p>
+        </div>
+        <div class="hcard" style="background:linear-gradient(135deg,#1B3A2A,#0D2218);">
+          <h4>🌟 Beyond the Podium</h4>
+          <p>Register early for the best chance at your preferred speaker table. Each table seats a small group for an intimate, personal conversation. Don't miss this unique opportunity.</p>
+        </div>
+        <div class="scard">
+          <div class="scard-title">Questions?</div>
+          <p style="font-size:0.78rem;color:#4A5568;line-height:1.6;">Contact the conference coordinator using the information provided in your conference invitation. A confirmation will be sent after registration.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><strong>Finishing Strong in the Age of Artificial Intelligence</strong></p>
+  <p>May 4–5, 2026 · Atlantis Cove, One Casino Drive, Suite 40, Paradise Island, Bahamas</p>
+  <p>Opening Prayer: Bishop Earnest Sutton · Faithway Apostolic Church · Elizabeth City, NC</p>
+  <p>Meal payment deadline: April 20, 2026 · Dr. Gloria Frelix · 301 Dogwood Trail · Elizabeth City, NC 27909 · Money Order or Cashier's Check only</p>
+  <p style="margin-top:8px;font-size:0.7rem;opacity:0.4;">For questions, refer to the contact information in your conference invitation.</p>
+</footer>
+
+<script>
+function toggleSpk(show) {
+  document.getElementById('spkSel').style.display = show ? 'block' : 'none';
+}
+async function submitForm(e) {
+  e.preventDefault();
+  var f = document.getElementById('regForm');
+  if (!f.fname.value.trim() || !f.email.value.trim()) {
+    alert('Please enter your name and email address to continue.');
+    return;
+  }
+  var btn = f.querySelector('.sub-btn');
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+  try {
+    var data = new FormData(f);
+    var response = await fetch('https://formspree.io/f/mbdpyrop', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      f.style.display = 'none';
+      var msg = document.getElementById('successMsg');
+      msg.style.display = 'block';
+      msg.scrollIntoView({ behavior:'smooth', block:'start' });
+    } else {
+      btn.textContent = 'Submit Registration →';
+      btn.disabled = false;
+      alert('There was a problem submitting your registration. Please try again or contact the organiser.');
+    }
+  } catch(err) {
+    btn.textContent = 'Submit Registration →';
+    btn.disabled = false;
+    alert('There was a problem submitting your registration. Please check your internet connection and try again.');
+  }
+}
+</script>
+</body>
+</html>
