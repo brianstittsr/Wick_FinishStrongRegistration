@@ -18,7 +18,8 @@ const speakers = [
 ]
 
 export function RegistrationForm() {
-  const { addRegistration } = useConferenceStore()
+  const addRegistration = useConferenceStore((state) => state.addRegistration)
+  const registrations = useConferenceStore((state) => state.registrations)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showSpeakerSelect, setShowSpeakerSelect] = useState(false)
   const [formData, setFormData] = useState({
@@ -110,6 +111,14 @@ export function RegistrationForm() {
 
     if (!formData.fname || !formData.lname || !formData.email) {
       toast.error("Please fill in all required fields")
+      return
+    }
+
+    // Check for duplicate email
+    const existingRegistration = registrations.find(r => r.email.toLowerCase() === formData.email.toLowerCase())
+    if (existingRegistration) {
+      const existingType = existingRegistration.registrationType === 'speaker' ? 'Speaker' : 'Attendee'
+      toast.error(`This email is already registered as a ${existingType}: ${existingRegistration.fname} ${existingRegistration.lname}`)
       return
     }
 

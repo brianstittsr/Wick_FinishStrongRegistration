@@ -682,18 +682,18 @@ export default function AdminDashboard() {
           <TabsContent value="attendees" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>All Registrations ({stats.totalAttendees})</CardTitle>
-                <CardDescription>Complete list of registered attendees</CardDescription>
+                <CardTitle>Attendees Only ({stats.attendees})</CardTitle>
+                <CardDescription>List of registered attendees (speakers excluded)</CardDescription>
               </CardHeader>
               <CardContent>
-                {registrations.length === 0 ? (
+                {registrations.filter(r => r.registrationType === 'attendee').length === 0 ? (
                   <div className="text-center py-12 text-gray-500">
                     <Users className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>No registrations yet</p>
+                    <p>No attendees registered yet</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {registrations.map((reg) => (
+                    {registrations.filter(r => r.registrationType === 'attendee').map((reg) => (
                       <div key={reg.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
                         <div className="flex justify-between items-start mb-3">
                           <div className="flex-1">
