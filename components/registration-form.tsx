@@ -201,7 +201,7 @@ export function RegistrationForm() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-[#1B2A4A]">1 — Attendee Information</CardTitle>
+          <CardTitle className="text-[#1B2A4A]">1 — Registration Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
