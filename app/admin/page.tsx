@@ -64,6 +64,7 @@ export default function AdminDashboard() {
   const stats = useMemo(() => {
     const speakers = registrations.filter(r => r.registrationType === 'speaker').length
     const attendees = registrations.filter(r => r.registrationType === 'attendee').length
+    const students = registrations.filter(r => r.registrationType === 'student').length
     const mondayBreakfast = registrations.filter(r => r.bfast_mon).length
     const tuesdayBreakfast = registrations.filter(r => r.bfast_tue).length
     const lunch = registrations.filter(r => r.lunch).length
@@ -96,6 +97,7 @@ export default function AdminDashboard() {
       totalAttendees: registrations.length,
       speakers,
       attendees,
+      students,
       mondayBreakfast,
       tuesdayBreakfast,
       lunch,
@@ -563,6 +565,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
             <TabsTrigger value="attendees">Attendees</TabsTrigger>
             <TabsTrigger value="speaker-management">Speakers</TabsTrigger>
+            <TabsTrigger value="students">Students</TabsTrigger>
             <TabsTrigger value="speakers">Speaker Tables</TabsTrigger>
           </TabsList>
 
@@ -1020,6 +1023,80 @@ export default function AdminDashboard() {
                           )}
                         </div>
                       ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="students" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Student Registrations ({stats.students})</CardTitle>
+                <CardDescription>High school students registered for "Your Future Runs on AI" session</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {registrations.filter(r => r.registrationType === 'student').length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    <Users className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>No students registered yet</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {registrations.filter(r => r.registrationType === 'student').map((student) => (
+                      <div key={student.id} className="border border-purple-200 rounded-lg p-4 hover:bg-purple-50 transition-colors">
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h4 className="font-semibold text-lg text-[#1B2A4A]">
+                                {student.studentName || `${student.fname} ${student.lname}`}
+                              </h4>
+                              <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-800">
+                                🎓 Student
+                              </span>
+                            </div>
+                            {student.schoolName && (
+                              <p className="text-sm text-gray-600 mb-2">
+                                🏫 {student.schoolName}
+                              </p>
+                            )}
+                            <div className="text-sm text-gray-600 mt-2 pt-2 border-t border-purple-200">
+                              <p className="font-semibold text-gray-700 mb-1">Parent/Guardian:</p>
+                              <p>{student.parentName}</p>
+                              <p>{student.parentEmail}</p>
+                            </div>
+                          </div>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDeleteRegistration(student.id)}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        
+                        <div className="mt-3 pt-3 border-t border-purple-200">
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            <div className="px-2 py-1 rounded bg-purple-100 text-purple-800">
+                              📅 Monday, May 4, 2026
+                            </div>
+                            <div className="px-2 py-1 rounded bg-purple-100 text-purple-800">
+                              🕐 1:30 PM - 4:30 PM
+                            </div>
+                            <div className="px-2 py-1 rounded bg-green-100 text-green-800">
+                              ✅ FREE Admission
+                            </div>
+                            <div className="px-2 py-1 rounded bg-blue-100 text-blue-800">
+                              🏁 Arrive by 1:15 PM
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-3 text-xs text-gray-500">
+                          Registered: {new Date(student.createdAt).toLocaleString()}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </CardContent>

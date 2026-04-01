@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Future Runs on AI — Student Invitation &amp; Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Raleway:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Nunito', sans-serif;
+    background:#0f0f1a;
+    min-height:100vh;
+    padding:40px 16px;
+  }
+
+  .page-wrap {
+    max-width:640px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+
+  /* ══════════════════════════════
+     INVITATION SECTION
+  ══════════════════════════════ */
+  .email-wrapper {
+    border-radius:24px 24px 0 0;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+
+  .email-header {
+    background:linear-gradient(135deg, #1a0533 0%, #0d1f4a 40%, #003d40 100%);
+    padding:48px 40px 40px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .email-header::before {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 30%, rgba(6,182,212,0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.2) 0%, transparent 50%);
+    pointer-events:none;
+  }
+  .email-header::after {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.05) 1px, transparent 1px);
+    background-size:30px 30px;
+    pointer-events:none;
+  }
+  .header-content { position:relative; z-index:1; }
+  .header-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(16,185,129,0.15);
+    border:1px solid rgba(16,185,129,0.4);
+    color:#6EE7B7; font-size:0.72rem; font-weight:800;
+    letter-spacing:0.15em; text-transform:uppercase;
+    padding:7px 18px; border-radius:30px; margin-bottom:24px;
+  }
+  .badge-dot { width:7px; height:7px; border-radius:50%; background:#10B981; }
+  .header-title {
+    font-family:'Syne', sans-serif;
+    font-size:clamp(1.8rem,6vw,2.8rem); font-weight:800;
+    line-height:1.1; margin-bottom:10px; color:#fff;
+  }
+  .header-title .gradient-text {
+    background:linear-gradient(135deg,#67E8F9 0%,#A78BFA 50%,#F9A8D4 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .header-sub { font-size:0.95rem; color:rgba(255,255,255,0.65); margin-bottom:28px; line-height:1.6; font-weight:600; }
+  .header-chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .hchip { display:flex; align-items:center; gap:7px; padding:8px 16px; border-radius:8px; font-size:0.8rem; font-weight:700; }
+  .hchip.cyan { background:rgba(6,182,212,0.15); border:1px solid rgba(6,182,212,0.35); color:#67E8F9; }
+  .hchip.purple { background:rgba(124,58,237,0.15); border:1px solid rgba(124,58,237,0.35); color:#A78BFA; }
+  .hchip.green { background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:#6EE7B7; }
+
+  .email-body { background:#ffffff; padding:40px; }
+  .greeting { font-family:'Cormorant Garamond',serif; font-size:1.45rem; font-weight:700; line-height:1.4; color:#1a1a2e; letter-spacing:0.02em; margin-bottom:16px; }
+  .body-text { font-size:0.93rem; color:#334155; line-height:1.8; margin-bottom:18px; font-weight:600; }
+
+  .speaker-card {
+    background:linear-gradient(135deg,#0d1f4a 0%,#1a0533 100%);
+    border-radius:16px; padding:24px 26px; margin:24px 0;
+    display:flex; gap:18px; align-items:center;
+  }
+  @media(max-width:480px){ .speaker-card { flex-direction:column; text-align:center; } }
+  .speaker-avatar {
+    width:72px; height:72px; border-radius:50%;
+    background:linear-gradient(135deg,#7C3AED 0%,#06B6D4 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; color:#fff;
+    flex-shrink:0; border:3px solid rgba(124,58,237,0.5);
+    box-shadow:0 0 24px rgba(124,58,237,0.4);
+  }
+  .speaker-name { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; color:#fff; margin-bottom:4px; letter-spacing:0.04em; }
+  .speaker-title { font-size:0.76rem; color:#67E8F9; font-weight:700; letter-spacing:0.04em; line-height:1.5; margin-bottom:8px; }
+  .speaker-topic { font-size:0.8rem; color:rgba(255,255,255,0.65); font-style:italic; line-height:1.5; border-top:1px solid rgba(255,255,255,0.1); padding-top:9px; margin-top:4px; }
+
+  .details-box { background:#F0FDF4; border:2px solid #BBF7D0; border-radius:14px; padding:22px 24px; margin:22px 0; }
+  .details-title { font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:800; color:#065F46; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .detail-row { display:flex; gap:12px; align-items:flex-start; padding:9px 0; border-bottom:1px solid #D1FAE5; font-size:0.88rem; color:#1a3a2a; font-weight:700; }
+  .detail-row:last-child { border-bottom:none; padding-bottom:0; }
+  .detail-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+  .detail-label { color:#065F46; min-width:90px; flex-shrink:0; }
+  .free-tag { display:inline-block; background:#065F46; color:#fff; font-size:0.75rem; font-weight:800; padding:2px 10px; border-radius:20px; margin-left:6px; }
+
+  .free-banner { background:linear-gradient(135deg,#7C3AED 0%,#06B6D4 100%); border-radius:12px; padding:16px 22px; text-align:center; margin:22px 0; color:#fff; font-size:0.92rem; font-weight:800; letter-spacing:0.03em; }
+
+  .sign-off { margin-top:28px; padding-top:22px; border-top:2px solid #F1F5F9; }
+  .sign-off p { font-size:0.9rem; color:#334155; font-weight:600; line-height:1.7; }
+  .sign-name { font-family:'Raleway',sans-serif; font-size:1.15rem; font-weight:700; color:#1a1a2e; margin-top:10px; letter-spacing:0.03em; }
+  .sign-title { font-family:'Raleway',sans-serif; font-size:0.84rem; font-weight:600; color:#334155; line-height:1.6; margin-top:3px; }
+
+  .print-bar { background:#f8fafc; border-top:1px solid #e2e8f0; padding:14px 40px; text-align:right; }
+  .print-btn { background:none; border:1.5px solid #CBD5E1; border-radius:8px; padding:8px 18px; font-family:'Nunito',sans-serif; font-size:0.8rem; font-weight:700; color:#64748B; cursor:pointer; }
+  .print-btn:hover { background:#F1F5F9; color:#1a1a2e; }
+
+  .email-footer { background:#1a1a2e; padding:24px 40px; text-align:center; color:rgba(255,255,255,0.35); font-size:0.75rem; line-height:1.8; }
+  .email-footer strong { color:rgba(255,255,255,0.6); }
+
+  /* ══════════════════════════════
+     DIVIDER BETWEEN SECTIONS
+  ══════════════════════════════ */
+  .section-divider {
+    background:#0f0f1a;
+    text-align:center;
+    padding:20px;
+    font-family:'Syne',sans-serif;
+    font-size:0.8rem; font-weight:800;
+    letter-spacing:0.18em; text-transform:uppercase;
+    color:rgba(103,232,249,0.6);
+    display:flex; align-items:center; gap:12px; justify-content:center;
+  }
+  .section-divider::before, .section-divider::after {
+    content:''; flex:1; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(103,232,249,0.3), transparent);
+  }
+
+  /* ══════════════════════════════
+     REGISTRATION FORM SECTION
+  ══════════════════════════════ */
+  .reg-wrapper {
+    border-radius:0 0 24px 24px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+
+  .reg-header {
+    background:linear-gradient(135deg,#1B2A4A 0%,#2A5080 100%);
+    padding:32px 32px 28px; text-align:center;
+  }
+  .reg-badge {
+    display:inline-block;
+    background:rgba(232,185,106,0.15); border:1px solid rgba(232,185,106,0.45);
+    color:#E8B96A; font-size:0.7rem; font-weight:800;
+    letter-spacing:0.16em; text-transform:uppercase;
+    padding:5px 16px; border-radius:30px; margin-bottom:14px;
+  }
+  .reg-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.3rem,4vw,1.7rem); font-weight:700;
+    color:#fff; line-height:1.2; margin-bottom:6px;
+  }
+  .reg-title span { color:#E8B96A; }
+  .reg-sub { font-size:0.82rem; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.5; }
+
+  .event-strip {
+    background:#F9F5EE; border-bottom:2px solid #EEE8DC;
+    padding:12px 28px;
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .estrip-item { font-size:0.77rem; font-weight:700; color:#1B2A4A; display:flex; align-items:center; gap:5px; }
+
+  .reg-body { background:#ffffff; padding:28px 32px; }
+  .form-intro {
+    font-size:0.87rem; color:#4A5568; line-height:1.65; margin-bottom:22px; font-weight:600;
+    background:#EEF2FF; border-left:4px solid #1B2A4A;
+    border-radius:0 8px 8px 0; padding:11px 13px;
+  }
+  .section-label {
+    font-size:0.7rem; font-weight:800; letter-spacing:0.12em;
+    text-transform:uppercase; color:#C9933A;
+    margin-bottom:11px; margin-top:20px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .section-label::after { content:''; flex:1; height:1px; background:#EEE8DC; }
+
+  .fg2 { display:flex; flex-direction:column; gap:4px; margin-bottom:13px; }
+  .fg2 label { font-size:0.75rem; font-weight:800; color:#1B2A4A; letter-spacing:0.04em; text-transform:uppercase; }
+  .fg2 input {
+    border:1.5px solid #DDE2EC; border-radius:10px;
+    padding:11px 14px; font-size:0.92rem;
+    font-family:'Nunito',sans-serif; color:#1B2A4A;
+    background:#F9F5EE; outline:none; width:100%;
+    transition:border-color 0.2s, box-shadow 0.2s; font-weight:600;
+  }
+  .fg2 input:focus { border-color:#1B2A4A; box-shadow:0 0 0 3px rgba(27,42,74,0.1); background:#fff; }
+  .fg2 input::placeholder { color:#A0AEC0; font-weight:400; }
+
+  .reg-submit {
+    width:100%; padding:14px;
+    background:linear-gradient(135deg,#1B2A4A,#2A5080);
+    color:#fff; border:none; border-radius:12px;
+    font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+    letter-spacing:0.04em; cursor:pointer; margin-top:18px;
+    box-shadow:0 4px 16px rgba(27,42,74,0.3);
+  }
+
+  .return-note {
+    margin-top:14px; background:#FFF8E1;
+    border:1px solid rgba(201,147,58,0.35); border-radius:10px;
+    padding:11px 13px; font-size:0.79rem; color:#4E3200;
+    line-height:1.6; font-weight:600; text-align:center;
+  }
+  .return-note strong { color:#BF360C; }
+
+  .success-msg {
+    display:none; text-align:center; padding:36px 28px;
+  }
+  .success-msg .sicon { font-size:3.2rem; margin-bottom:14px; }
+  .success-msg h3 { font-family:'Playfair Display',serif; font-size:1.4rem; color:#1B2A4A; margin-bottom:8px; }
+  .success-msg p { font-size:0.88rem; color:#4A5568; line-height:1.7; font-weight:600; }
+
+  .reg-footer {
+    background:#1B2A4A; padding:16px 28px; text-align:center;
+    font-size:0.74rem; color:rgba(255,255,255,0.45); line-height:1.7;
+  }
+  .reg-footer strong { color:#E8B96A; }
+
+  @media print {
+    body { background:white; padding:0; }
+    .print-bar { display:none; }
+    .section-divider { background:white; color:#333; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ══ INVITATION ══ -->
+  <div class="email-wrapper">
+
+    <div class="email-header">
+      <div class="header-content">
+        <div class="header-badge"><span class="badge-dot"></span> Special Student Invitation</div>
+        <h1 class="header-title">You're Invited to<br><span class="gradient-text">Your Future Runs on AI</span></h1>
+        <p class="header-sub">A special afternoon session for high school students<br>with a world-class expert — Monday, May 4, 2026</p>
+        <div class="header-chips">
+          <div class="hchip cyan">🕐 Arrive by 1:15 PM</div>
+          <div class="hchip purple">🎤 Presentation 1:30 – 4:30 PM</div>
+          <div class="hchip green">✅ FREE Admission</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-body">
+      <p class="greeting">To the Trailblazers, Visionaries &amp; Future Leaders of Tomorrow —</p>
+      <p class="body-text">We are excited to extend a special invitation to you for an exclusive afternoon session designed just for high school students!</p>
+
+      <div class="speaker-card">
+        <div class="speaker-avatar">TS</div>
+        <div>
+          <div class="speaker-name">Dr. Timothy C. Summers, Ph.D., VP, CIO</div>
+          <div class="speaker-title">Vice President &amp; Chief Information Officer<br>Morgan State University · Baltimore, MD, USA</div>
+          <div class="speaker-topic">"How AI Is Changing the Delivery of Health Care in the World — Now and Beyond"</div>
+        </div>
+      </div>
+
+      <p class="body-text">Dr. Summers is known for making complex ideas exciting and accessible for audiences of all backgrounds — so come ready to learn, ask questions, and be inspired!</p>
+
+      <div class="details-box">
+        <div class="details-title">📋 Event Details</div>
+        <div class="detail-row"><span class="detail-icon">📅</span><span class="detail-label">Date</span><span>Monday, May 4, 2026</span></div>
+        <div class="detail-row"><span class="detail-icon">🏁</span><span class="detail-label">Arrive By</span><span>1:15 PM — please be on time!</span></div>
+        <div class="detail-row"><span class="detail-icon">🎤</span><span class="detail-label">Presentation</span><span>1:30 PM – 3:15 PM</span></div>
+        <div class="detail-row"><span class="detail-icon">💬</span><span class="detail-label">Wrap-Up &amp; Q&amp;A</span><span>3:30 PM – 4:30 PM</span></div>
+        <div class="detail-row"><span class="detail-icon">📍</span><span class="detail-label">Location</span><span>Atlantis Cove · One Casino Drive, Suite 40 · Paradise Island, Bahamas</span></div>
+        <div class="detail-row"><span class="detail-icon">💰</span><span class="detail-label">Admission</span><span>FREE <span class="free-tag">NO COST</span></span></div>
+      </div>
+
+      <div class="free-banner">🚀 This is a rare opportunity to hear from a world-class AI expert — and it won't cost you a thing!</div>
+
+      <p class="body-text">To reserve your spot, please complete the short registration form below. It only takes 30 seconds! <strong>Seats are limited</strong>, so please register as soon as possible.</p>
+
+      <p class="body-text">We look forward to seeing you there!</p>
+
+      <div class="sign-off">
+        <p>Warm regards,</p>
+        <div class="sign-name">Dr. Johnny Williams, M.D.</div>
+        <div class="sign-title">President, Old North State Medical Foundation</div>
+
+        <div style="margin-top:18px; padding-top:18px; border-top:1px solid #F1F5F9;">
+          <div class="sign-name">Dr. Gloria Frelix, M.D., MHA</div>
+          <div class="sign-title">Board Member, Old North State Medical Foundation</div>
+        </div>
+
+        <div style="margin-top:20px; padding:13px 16px; background:#FFF3E0; border:1px solid rgba(230,130,0,0.35); border-radius:10px; font-size:0.83rem; color:#4E2600; line-height:1.65;">
+          <strong>📋 Please Note:</strong> Once completed, please return your registration form to <strong>Thea Monet</strong> at <strong>theamonet@aol.com</strong> if it does not return automatically.
+        </div>
+      </div>
+    </div>
+
+    <div class="print-bar">
+      <button class="print-btn" onclick="window.print()">🖨️ Print This Page</button>
+    </div>
+
+    <div class="email-footer">
+      <p><strong>Finishing Strong in the Age of Artificial Intelligence</strong></p>
+      <p>May 4–5, 2026 · Atlantis Cove, One Casino Drive, Suite 40, Paradise Island, Bahamas</p>
+      <p style="margin-top:6px;font-size:0.7rem;opacity:0.6;">Questions? theamonet@aol.com</p>
+    </div>
+
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <div class="section-divider">↓ &nbsp; Complete Your Registration Below &nbsp; ↓</div>
+
+  <!-- ══ REGISTRATION FORM ══ -->
+  <div class="reg-wrapper">
+
+    <div class="reg-header">
+      <div class="reg-badge">✦ Student Registration Form ✦</div>
+      <h1 class="reg-title">Your Future<br><span>Runs on AI</span></h1>
+      <p class="reg-sub">Reserve your spot — takes just 30 seconds!</p>
+    </div>
+
+    <div class="event-strip">
+      <div class="estrip-item">📅 Monday, May 4, 2026</div>
+      <div class="estrip-item">🕐 1:30 – 4:30 PM</div>
+      <div class="estrip-item">📍 Atlantis Cove, Paradise Island</div>
+      <div class="estrip-item">✅ FREE</div>
+    </div>
+
+    <div class="reg-body">
+      <div class="form-intro">
+        Please complete all fields below to reserve your spot. <strong>Seats are limited</strong> — register as soon as possible!
+      </div>
+
+      <form id="studentForm" onsubmit="submitReg(event)" novalidate>
+
+        <div class="section-label">Student Information</div>
+        <div class="fg2">
+          <label>Student's Full Name *</label>
+          <input type="text" name="student_name" placeholder="First and last name" required>
+        </div>
+        <div class="fg2">
+          <label>School Name *</label>
+          <input type="text" name="school_name" placeholder="Name of your school" required>
+        </div>
+
+        <div class="section-label">Parent / Guardian Information</div>
+        <div class="fg2">
+          <label>Parent or Guardian Full Name *</label>
+          <input type="text" name="parent_name" placeholder="First and last name" required>
+        </div>
+        <div class="fg2">
+          <label>Parent or Guardian Email Address *</label>
+          <input type="email" name="parent_email" placeholder="parent@email.com" required>
+        </div>
+
+        <button type="submit" class="reg-submit">Reserve My Spot →</button>
+      </form>
+
+      <div class="return-note">
+        📋 If your registration does not submit automatically, please email<br>
+        <strong>Thea Monet</strong> at <strong>theamonet@aol.com</strong>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        <div class="sicon">🎉</div>
+        <h3>You're Registered!</h3>
+        <p>Thank you for registering for <strong>Your Future Runs on AI</strong>.<br><br>
+        Please arrive by <strong>1:15 PM</strong> on Monday, May 4, 2026 at<br>
+        Atlantis Cove, One Casino Drive, Suite 40, Paradise Island, Bahamas.<br><br>
+        We look forward to seeing you there!</p>
+      </div>
+    </div>
+
+    <div class="reg-footer">
+      <p><strong>Finishing Strong in the Age of Artificial Intelligence</strong></p>
+      <p>May 4–5, 2026 · Atlantis Cove · Paradise Island, Bahamas</p>
+      <p>Questions? <strong>theamonet@aol.com</strong></p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function submitReg(e) {
+  e.preventDefault();
+  var f = document.getElementById('studentForm');
+  if (!f.student_name.value.trim() || !f.school_name.value.trim() || !f.parent_name.value.trim() || !f.parent_email.value.trim()) {
+    alert('Please fill in all fields to complete your registration.');
+    return;
+  }
+  f.style.display = 'none';
+  document.querySelector('.return-note').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

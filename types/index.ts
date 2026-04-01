@@ -1,6 +1,6 @@
 export interface RegistrationData {
   id: string
-  registrationType: 'attendee' | 'speaker'
+  registrationType: 'attendee' | 'speaker' | 'student'
   fname: string
   lname: string
   email: string
@@ -18,6 +18,12 @@ export interface RegistrationData {
   vision_screening: boolean
   referral?: string
   createdAt: string
+  
+  // Student-specific fields
+  studentName?: string
+  schoolName?: string
+  parentName?: string
+  parentEmail?: string
   
   // Speaker-specific fields
   credentials?: string
