@@ -4,7 +4,7 @@ import { RegistrationData } from '@/types'
 
 interface ConferenceStore {
   registrations: RegistrationData[]
-  addRegistration: (registration: Omit<RegistrationData, 'id' | 'createdAt'>) => void
+  addRegistration: (registration: Omit<RegistrationData, 'id' | 'createdAt'> | RegistrationData) => void
   removeRegistration: (id: string) => void
   clearRegistrations: () => void
 }
@@ -17,8 +17,8 @@ export const useConferenceStore = create<ConferenceStore>()(
         set((state) => ({
           registrations: [...state.registrations, {
             ...registration,
-            id: crypto.randomUUID(),
-            createdAt: new Date().toISOString()
+            id: (registration as any).id || crypto.randomUUID(),
+            createdAt: (registration as any).createdAt || new Date().toISOString()
           }],
         })),
       removeRegistration: (id) =>

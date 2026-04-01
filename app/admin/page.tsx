@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import Link from "next/link"
 import { useConferenceStore } from "@/lib/store"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -10,9 +10,34 @@ import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, F
 import { toast } from "sonner"
 
 export default function AdminDashboard() {
-  const { registrations, removeRegistration, clearRegistrations } = useConferenceStore()
+  const { registrations, removeRegistration, clearRegistrations, addRegistration } = useConferenceStore()
   const [activeTab, setActiveTab] = useState("overview")
   const [isSyncing, setIsSyncing] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const loadServerData = async () => {
+      try {
+        const response = await fetch('/api/registrations')
+        if (response.ok) {
+          const { data } = await response.json()
+          if (data && Array.isArray(data)) {
+            const existingIds = new Set(registrations.map(r => r.id))
+            data.forEach(reg => {
+              if (!existingIds.has(reg.id)) {
+                addRegistration(reg)
+              }
+            })
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load server data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    loadServerData()
+  }, [])
 
   const stats = useMemo(() => {
     const speakers = registrations.filter(r => r.registrationType === 'speaker').length
