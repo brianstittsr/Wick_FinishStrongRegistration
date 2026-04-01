@@ -399,7 +399,7 @@ export function RegistrationForm() {
               <strong>💳 Meal Payment Deadline: April 20, 2026</strong><br />
               All meal payments must be received by <strong>April 20, 2026</strong> and forwarded to:<br /><br />
               <strong>Dr. Gloria Frelix</strong> · 301 Dogwood Trail · Elizabeth City, NC 27909<br /><br />
-              <strong>Payment must be made by Money Order or Cashier's Check only.</strong> Please make payable to <strong>Dr. Gloria Frelix</strong>. Cash and personal checks will not be accepted. Payment must be submitted in advance by the deadline.
+              <strong>Payment must be made by Money Order or Cashier&apos;s Check only.</strong> Please make payable to <strong>Dr. Gloria Frelix</strong>. Cash and personal checks will not be accepted. Payment must be submitted in advance by the deadline.
             </p>
           </div>
         </CardContent>
