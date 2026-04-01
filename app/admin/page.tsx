@@ -6,14 +6,17 @@ import { useConferenceStore } from "@/lib/store"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save } from "lucide-react"
+import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save, Edit } from "lucide-react"
 import { toast } from "sonner"
+import { EditRegistrationDialog } from "@/components/edit-registration-dialog"
+import { RegistrationData } from "@/types"
 
 export default function AdminDashboard() {
-  const { registrations, removeRegistration, clearRegistrations, addRegistration } = useConferenceStore()
+  const { registrations, removeRegistration, clearRegistrations, addRegistration, updateRegistration } = useConferenceStore()
   const [activeTab, setActiveTab] = useState("overview")
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [editingRegistration, setEditingRegistration] = useState<RegistrationData | null>(null)
 
   useEffect(() => {
     const loadServerData = async () => {
@@ -106,7 +109,11 @@ export default function AdminDashboard() {
 
   const handleExportExcel = async () => {
     try {
-      const response = await fetch('/api/export/excel')
+      const response = await fetch('/api/export/excel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ registrations })
+      })
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
@@ -121,7 +128,11 @@ export default function AdminDashboard() {
 
   const handleExportPDF = async () => {
     try {
-      const response = await fetch('/api/export/pdf')
+      const response = await fetch('/api/export/pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ registrations })
+      })
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
@@ -159,6 +170,12 @@ export default function AdminDashboard() {
       clearRegistrations()
       toast.success("All registrations cleared")
     }
+  }
+
+  const handleSaveEdit = (updated: RegistrationData) => {
+    updateRegistration(updated.id, updated)
+    setEditingRegistration(null)
+    toast.success("Registration updated successfully")
   }
 
   const handleDeleteRegistration = (id: string) => {
@@ -462,13 +479,22 @@ export default function AdminDashboard() {
                             {reg.phone && <p className="text-sm text-gray-600">{reg.phone}</p>}
                             {reg.org && <p className="text-sm text-gray-500 mt-1">{reg.org}</p>}
                           </div>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDeleteRegistration(reg.id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setEditingRegistration(reg)}
+                            >
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleDeleteRegistration(reg.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
                         </div>
                         
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
@@ -563,6 +589,14 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {editingRegistration && (
+        <EditRegistrationDialog
+          registration={editingRegistration}
+          onSave={handleSaveEdit}
+          onClose={() => setEditingRegistration(null)}
+        />
+      )}
     </div>
   )
 }

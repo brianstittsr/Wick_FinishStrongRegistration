@@ -13,58 +13,79 @@ async function readRegistrations() {
   }
 }
 
+function generateCSV(registrations: any[]) {
+  const headers = [
+    'ID',
+    'Type',
+    'First Name',
+    'Last Name',
+    'Email',
+    'Phone',
+    'Organization',
+    'Job Title',
+    'City',
+    'State/ZIP',
+    'Mon Breakfast',
+    'Tue Breakfast',
+    'Lunch',
+    'Preferred Speaker',
+    'Alternate Speaker',
+    'Dinner',
+    'Vision Screening',
+    'Referral',
+    'Created At'
+  ]
+  
+  const rows = registrations.map((reg: any) => [
+    reg.id,
+    reg.registrationType || 'attendee',
+    reg.fname,
+    reg.lname,
+    reg.email,
+    reg.phone || '',
+    reg.org || '',
+    reg.jobtitle || '',
+    reg.city || '',
+    reg.zip || '',
+    reg.bfast_mon ? 'Yes' : 'No',
+    reg.bfast_tue ? 'Yes' : 'No',
+    reg.lunch ? 'Yes' : 'No',
+    reg.pref_spk || '',
+    reg.alt_spk || '',
+    reg.dinner ? 'Yes' : 'No',
+    reg.vision_screening ? 'Yes' : 'No',
+    reg.referral || '',
+    reg.createdAt
+  ])
+  
+  let csv = headers.join(',') + '\n'
+  rows.forEach((row: any[]) => {
+    csv += row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',') + '\n'
+  })
+  
+  return csv
+}
+
 export async function GET() {
   try {
     const registrations = await readRegistrations()
+    const csv = generateCSV(registrations)
     
-    const headers = [
-      'ID',
-      'Type',
-      'First Name',
-      'Last Name',
-      'Email',
-      'Phone',
-      'Organization',
-      'Job Title',
-      'City',
-      'State/ZIP',
-      'Mon Breakfast',
-      'Tue Breakfast',
-      'Lunch',
-      'Preferred Speaker',
-      'Alternate Speaker',
-      'Dinner',
-      'Vision Screening',
-      'Referral',
-      'Created At'
-    ]
-    
-    const rows = registrations.map((reg: any) => [
-      reg.id,
-      reg.registrationType || 'attendee',
-      reg.fname,
-      reg.lname,
-      reg.email,
-      reg.phone || '',
-      reg.org || '',
-      reg.jobtitle || '',
-      reg.city || '',
-      reg.zip || '',
-      reg.bfast_mon ? 'Yes' : 'No',
-      reg.bfast_tue ? 'Yes' : 'No',
-      reg.lunch ? 'Yes' : 'No',
-      reg.pref_spk || '',
-      reg.alt_spk || '',
-      reg.dinner ? 'Yes' : 'No',
-      reg.vision_screening ? 'Yes' : 'No',
-      reg.referral || '',
-      reg.createdAt
-    ])
-    
-    let csv = headers.join(',') + '\n'
-    rows.forEach((row: any[]) => {
-      csv += row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',') + '\n'
+    return new NextResponse(csv, {
+      headers: {
+        'Content-Type': 'text/csv',
+        'Content-Disposition': 'attachment; filename="conference-registrations.csv"'
+      }
     })
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to export data' }, { status: 500 })
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const { registrations } = await request.json()
+    const csv = generateCSV(registrations || [])
     
     return new NextResponse(csv, {
       headers: {

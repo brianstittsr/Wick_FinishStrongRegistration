@@ -150,3 +150,19 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to generate report' }, { status: 500 })
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const { registrations } = await request.json()
+    const html = generateHTMLReport(registrations || [])
+    
+    return new NextResponse(html, {
+      headers: {
+        'Content-Type': 'text/html',
+        'Content-Disposition': 'attachment; filename="conference-report.html"'
+      }
+    })
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to generate report' }, { status: 500 })
+  }
+}
