@@ -288,7 +288,7 @@ export function RegistrationForm() {
               </div>
             </div>
             <p className="text-sm text-gray-600 mb-3">
-              Sit at a morning speaker's table during this exclusive 1-hour lunch. <strong>Early registrants</strong> may request their preferred speaker. Seating is limited — first-come, first-served.
+              Sit at a morning speaker&apos;s table during this exclusive 1-hour lunch. <strong>Early registrants</strong> may request their preferred speaker. Seating is limited — first-come, first-served.
             </p>
             <div className="space-y-2 mb-3">
               <label className="flex items-center gap-2 cursor-pointer">
