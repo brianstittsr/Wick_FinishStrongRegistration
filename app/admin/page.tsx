@@ -6,7 +6,7 @@ import { useConferenceStore } from "@/lib/store"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save, Edit } from "lucide-react"
+import { Home, Users, UtensilsCrossed, Armchair, TrendingUp, Download, Trash2, FileText, FileSpreadsheet, Save, Edit, UserPlus, Mic2 } from "lucide-react"
 import { toast } from "sonner"
 import { EditRegistrationDialog } from "@/components/edit-registration-dialog"
 import { RegistrationData } from "@/types"
@@ -17,6 +17,7 @@ export default function AdminDashboard() {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [editingRegistration, setEditingRegistration] = useState<RegistrationData | null>(null)
+  const [isCreatingNewSpeaker, setIsCreatingNewSpeaker] = useState(false)
 
   useEffect(() => {
     const loadServerData = async () => {
@@ -175,7 +176,82 @@ export default function AdminDashboard() {
   const handleSaveEdit = (updated: RegistrationData) => {
     updateRegistration(updated.id, updated)
     setEditingRegistration(null)
+    setIsCreatingNewSpeaker(false)
     toast.success("Registration updated successfully")
+  }
+
+  const handleCreateNewSpeaker = () => {
+    const newSpeaker: RegistrationData = {
+      id: crypto.randomUUID(),
+      registrationType: 'speaker',
+      fname: '',
+      lname: '',
+      email: '',
+      phone: '',
+      org: '',
+      jobtitle: '',
+      city: '',
+      zip: '',
+      bfast_mon: false,
+      bfast_tue: false,
+      lunch: false,
+      dinner: false,
+      vision_screening: false,
+      pref_spk: '',
+      alt_spk: '',
+      referral: '',
+      createdAt: new Date().toISOString(),
+      credentials: '',
+      presentationTitle: '',
+      timeSlot_7_8: false,
+      timeSlot_8_9: false,
+      timeSlot_9_10: false,
+      timeSlot_10_11: false,
+      timeSlot_11_12: false,
+      timeSlotNotes: '',
+      ownLaptop: false,
+      conferenceLaptop: false,
+      projectorScreen: false,
+      hdmiConnection: false,
+      handheldMic: false,
+      lavalierMic: false,
+      podiumMic: false,
+      audioForVideo: false,
+      internetAccess: false,
+      laptopType: '',
+      avNotes: '',
+      noFoodAllergies: false,
+      hasFoodAllergies: false,
+      allergyDetails: '',
+      vegetarian: false,
+      vegan: false,
+      glutenFree: false,
+      dairyFree: false,
+      nutFree: false,
+      kosher: false,
+      halal: false,
+      dietaryOther: '',
+      mobilityNone: false,
+      mobilityCane: false,
+      mobilityWalker: false,
+      mobilityManualWheelchair: false,
+      mobilityPowerWheelchair: false,
+      mobilityServiceAnimal: false,
+      mobilityOther: '',
+      noSupportPerson: false,
+      hasSupportPerson: false,
+      supportPersonRole: '',
+      additionalInfo: ''
+    }
+    setEditingRegistration(newSpeaker)
+    setIsCreatingNewSpeaker(true)
+  }
+
+  const handleSaveNewSpeaker = (speaker: RegistrationData) => {
+    addRegistration(speaker)
+    setEditingRegistration(null)
+    setIsCreatingNewSpeaker(false)
+    toast.success("Speaker created successfully")
   }
 
   const handleDeleteRegistration = (id: string) => {
@@ -287,6 +363,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
             <TabsTrigger value="attendees">Attendees</TabsTrigger>
+            <TabsTrigger value="speaker-management">Speakers</TabsTrigger>
             <TabsTrigger value="speakers">Speaker Tables</TabsTrigger>
           </TabsList>
 
@@ -525,6 +602,170 @@ export default function AdminDashboard() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="speaker-management" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <Mic2 className="w-5 h-5" />
+                      Speaker Management
+                    </CardTitle>
+                    <CardDescription>Manage all conference speakers and their information</CardDescription>
+                  </div>
+                  <Button
+                    onClick={handleCreateNewSpeaker}
+                    className="bg-amber-600 hover:bg-amber-700"
+                  >
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Add New Speaker
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {registrations.filter(r => r.registrationType === 'speaker').length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    <Mic2 className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p className="mb-4">No speakers registered yet</p>
+                    <Button
+                      onClick={handleCreateNewSpeaker}
+                      variant="outline"
+                      className="border-amber-300 text-amber-700 hover:bg-amber-50"
+                    >
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Add Your First Speaker
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {registrations
+                      .filter(r => r.registrationType === 'speaker')
+                      .map((speaker) => (
+                        <div key={speaker.id} className="border-2 border-amber-200 rounded-lg p-4 hover:bg-amber-50/50 transition-colors bg-white">
+                          <div className="flex justify-between items-start mb-3">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <h4 className="font-semibold text-lg text-[#1B2A4A]">
+                                  {speaker.fname} {speaker.lname}
+                                  {speaker.credentials && <span className="text-amber-700">, {speaker.credentials}</span>}
+                                </h4>
+                                <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                                  🎤 Speaker
+                                </span>
+                              </div>
+                              {speaker.presentationTitle && (
+                                <p className="text-sm font-medium text-purple-700 mb-1">
+                                  📊 {speaker.presentationTitle}
+                                </p>
+                              )}
+                              <p className="text-sm text-gray-600">{speaker.email}</p>
+                              {speaker.phone && <p className="text-sm text-gray-600">{speaker.phone}</p>}
+                              {speaker.org && <p className="text-sm text-gray-500 mt-1">{speaker.org}</p>}
+                              {speaker.jobtitle && <p className="text-sm text-gray-500">{speaker.jobtitle}</p>}
+                            </div>
+                            <div className="flex gap-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setEditingRegistration(speaker)}
+                                className="border-amber-300 text-amber-700 hover:bg-amber-50"
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                onClick={() => handleDeleteRegistration(speaker.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3 border-t border-amber-200">
+                            {/* Time Slots */}
+                            {(speaker.timeSlot_7_8 || speaker.timeSlot_8_9 || speaker.timeSlot_9_10 || speaker.timeSlot_10_11 || speaker.timeSlot_11_12) && (
+                              <div className="text-xs">
+                                <p className="font-semibold text-gray-700 mb-1">⏰ Available Time Slots:</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {speaker.timeSlot_7_8 && <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded">7-8 AM</span>}
+                                  {speaker.timeSlot_8_9 && <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded">8-9 AM</span>}
+                                  {speaker.timeSlot_9_10 && <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded">9-10 AM</span>}
+                                  {speaker.timeSlot_10_11 && <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded">10-11 AM</span>}
+                                  {speaker.timeSlot_11_12 && <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded">11-12 PM</span>}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {/* AV Needs */}
+                            {(speaker.ownLaptop || speaker.conferenceLaptop || speaker.projectorScreen || speaker.hdmiConnection || 
+                              speaker.handheldMic || speaker.lavalierMic || speaker.podiumMic || speaker.audioForVideo || speaker.internetAccess) && (
+                              <div className="text-xs">
+                                <p className="font-semibold text-gray-700 mb-1">🎥 AV Requirements:</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {speaker.ownLaptop && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Own Laptop</span>}
+                                  {speaker.conferenceLaptop && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Conf. Laptop</span>}
+                                  {speaker.projectorScreen && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Projector</span>}
+                                  {speaker.hdmiConnection && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">HDMI</span>}
+                                  {speaker.handheldMic && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Handheld Mic</span>}
+                                  {speaker.lavalierMic && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Lavalier Mic</span>}
+                                  {speaker.podiumMic && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Podium Mic</span>}
+                                  {speaker.audioForVideo && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Audio/Video</span>}
+                                  {speaker.internetAccess && <span className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded">Internet</span>}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {/* Dietary */}
+                            {(speaker.vegetarian || speaker.vegan || speaker.glutenFree || speaker.dairyFree || 
+                              speaker.nutFree || speaker.kosher || speaker.halal || speaker.allergyDetails) && (
+                              <div className="text-xs">
+                                <p className="font-semibold text-gray-700 mb-1">🍽️ Dietary Needs:</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {speaker.vegetarian && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Vegetarian</span>}
+                                  {speaker.vegan && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Vegan</span>}
+                                  {speaker.glutenFree && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Gluten-Free</span>}
+                                  {speaker.dairyFree && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Dairy-Free</span>}
+                                  {speaker.nutFree && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Nut-Free</span>}
+                                  {speaker.kosher && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Kosher</span>}
+                                  {speaker.halal && <span className="px-2 py-0.5 bg-green-100 text-green-800 rounded">Halal</span>}
+                                  {speaker.allergyDetails && <span className="px-2 py-0.5 bg-red-100 text-red-800 rounded">Allergies: {speaker.allergyDetails}</span>}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {/* Accessibility */}
+                            {(speaker.mobilityCane || speaker.mobilityWalker || speaker.mobilityManualWheelchair || 
+                              speaker.mobilityPowerWheelchair || speaker.mobilityServiceAnimal || speaker.mobilityOther) && (
+                              <div className="text-xs">
+                                <p className="font-semibold text-gray-700 mb-1">♿ Accessibility:</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {speaker.mobilityCane && <span className="px-2 py-0.5 bg-orange-100 text-orange-800 rounded">Cane</span>}
+                                  {speaker.mobilityWalker && <span className="px-2 py-0.5 bg-orange-100 text-orange-800 rounded">Walker</span>}
+                                  {speaker.mobilityManualWheelchair && <span className="px-2 py-0.5 bg-orange-100 text-orange-800 rounded">Wheelchair</span>}
+                                  {speaker.mobilityPowerWheelchair && <span className="px-2 py-0.5 bg-orange-100 text-orange-800 rounded">Power Chair</span>}
+                                  {speaker.mobilityServiceAnimal && <span className="px-2 py-0.5 bg-orange-100 text-orange-800 rounded">Service Animal</span>}
+                                  {speaker.mobilityOther && <span className="px-2 py-0.5 bg-orange-100 text-orange-800 rounded">{speaker.mobilityOther}</span>}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {speaker.additionalInfo && (
+                            <div className="mt-3 pt-3 border-t border-amber-200">
+                              <p className="text-xs text-gray-600">
+                                <span className="font-semibold">📝 Notes:</span> {speaker.additionalInfo}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="speakers" className="space-y-6">
             <Card>
               <CardHeader>
@@ -593,8 +834,11 @@ export default function AdminDashboard() {
       {editingRegistration && (
         <EditRegistrationDialog
           registration={editingRegistration}
-          onSave={handleSaveEdit}
-          onClose={() => setEditingRegistration(null)}
+          onSave={isCreatingNewSpeaker ? handleSaveNewSpeaker : handleSaveEdit}
+          onClose={() => {
+            setEditingRegistration(null)
+            setIsCreatingNewSpeaker(false)
+          }}
         />
       )}
     </div>
