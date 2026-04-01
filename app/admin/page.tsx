@@ -1033,7 +1033,7 @@ export default function AdminDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Student Registrations ({stats.students})</CardTitle>
-                <CardDescription>High school students registered for "Your Future Runs on AI" session</CardDescription>
+                <CardDescription>High school students registered for &quot;Your Future Runs on AI&quot; session</CardDescription>
               </CardHeader>
               <CardContent>
                 {registrations.filter(r => r.registrationType === 'student').length === 0 ? (

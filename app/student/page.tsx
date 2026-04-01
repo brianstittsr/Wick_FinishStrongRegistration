@@ -95,7 +95,7 @@ export default function StudentRegistration() {
                 <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#10B981' }}></span> Special Student Invitation
               </div>
               <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem,6vw,2.8rem)', fontWeight: 800, lineHeight: 1.1, marginBottom: '10px', color: '#fff' }}>
-                You're Invited to<br/>
+                You&apos;re Invited to<br/>
                 <span style={{ background: 'linear-gradient(135deg,#67E8F9 0%,#A78BFA 50%,#F9A8D4 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Your Future Runs on AI</span>
               </h1>
               <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.65)', marginBottom: '28px', lineHeight: 1.6, fontWeight: 600 }}>
@@ -122,7 +122,7 @@ export default function StudentRegistration() {
               <div>
                 <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: '1.35rem', fontWeight: 700, color: '#fff', marginBottom: '4px', letterSpacing: '0.04em' }}>Dr. Timothy C. Summers, Ph.D., VP, CIO</div>
                 <div style={{ fontSize: '0.76rem', color: '#67E8F9', fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.5, marginBottom: '8px' }}>Vice President & Chief Information Officer<br/>Morgan State University · Baltimore, MD, USA</div>
-                <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', lineHeight: 1.5, borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '9px', marginTop: '4px' }}>"How AI Is Changing the Delivery of Health Care in the World — Now and Beyond"</div>
+                <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', lineHeight: 1.5, borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '9px', marginTop: '4px' }}>&quot;How AI Is Changing the Delivery of Health Care in the World — Now and Beyond&quot;</div>
               </div>
             </div>
 
@@ -165,7 +165,7 @@ export default function StudentRegistration() {
             </div>
 
             <div style={{ background: 'linear-gradient(135deg,#7C3AED 0%,#06B6D4 100%)', borderRadius: '12px', padding: '16px 22px', textAlign: 'center', margin: '22px 0', color: '#fff', fontSize: '0.92rem', fontWeight: 800, letterSpacing: '0.03em' }}>
-              🚀 This is a rare opportunity to hear from a world-class AI expert — and it won't cost you a thing!
+              🚀 This is a rare opportunity to hear from a world-class AI expert — and it won&apos;t cost you a thing!
             </div>
 
             <p style={{ fontSize: '0.93rem', color: '#334155', lineHeight: 1.8, marginBottom: '18px', fontWeight: 600 }}>
@@ -238,7 +238,7 @@ export default function StudentRegistration() {
                   </div>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '13px' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 800, color: '#1B2A4A', letterSpacing: '0.04em', textTransform: 'uppercase' }}>Student's Full Name *</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 800, color: '#1B2A4A', letterSpacing: '0.04em', textTransform: 'uppercase' }}>Student&apos;s Full Name *</label>
                     <input
                       type="text"
                       name="studentName"
@@ -310,7 +310,7 @@ export default function StudentRegistration() {
             ) : (
               <div style={{ textAlign: 'center', padding: '36px 28px' }}>
                 <div style={{ fontSize: '3.2rem', marginBottom: '14px' }}>🎉</div>
-                <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.4rem', color: '#1B2A4A', marginBottom: '8px' }}>You're Registered!</h3>
+                <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.4rem', color: '#1B2A4A', marginBottom: '8px' }}>You&apos;re Registered!</h3>
                 <p style={{ fontSize: '0.88rem', color: '#4A5568', lineHeight: 1.7, fontWeight: 600 }}>
                   Thank you for registering for <strong>Your Future Runs on AI</strong>.<br/><br/>
                   Please arrive by <strong>1:15 PM</strong> on Monday, May 4, 2026 at<br/>
