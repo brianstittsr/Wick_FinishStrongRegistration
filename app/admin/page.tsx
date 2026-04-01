@@ -19,6 +19,7 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [editingRegistration, setEditingRegistration] = useState<RegistrationData | null>(null)
   const [isCreatingNewSpeaker, setIsCreatingNewSpeaker] = useState(false)
+  const [isCreatingNewAttendee, setIsCreatingNewAttendee] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
@@ -313,6 +314,43 @@ export default function AdminDashboard() {
     setEditingRegistration(null)
     setIsCreatingNewSpeaker(false)
     toast.success("Speaker created successfully")
+  }
+
+  const handleCreateNewAttendee = () => {
+    const newAttendee: RegistrationData = {
+      id: crypto.randomUUID(),
+      registrationType: 'attendee',
+      fname: '',
+      lname: '',
+      email: '',
+      phone: '',
+      org: '',
+      jobtitle: '',
+      city: '',
+      zip: '',
+      bfast_mon: false,
+      bfast_tue: false,
+      lunch: false,
+      dinner: false,
+      vision_screening: false,
+      pref_spk: '',
+      alt_spk: '',
+      referral: '',
+      createdAt: new Date().toISOString(),
+      paymentReceived: false,
+      paymentAmount: 0,
+      paymentDate: '',
+      paymentNotes: ''
+    }
+    setEditingRegistration(newAttendee)
+    setIsCreatingNewAttendee(true)
+  }
+
+  const handleSaveNewAttendee = (attendee: RegistrationData) => {
+    addRegistration(attendee)
+    setEditingRegistration(null)
+    setIsCreatingNewAttendee(false)
+    toast.success("Attendee created successfully")
   }
 
   const calculateMealCost = (registration: RegistrationData): number => {
@@ -686,8 +724,19 @@ export default function AdminDashboard() {
           <TabsContent value="attendees" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Attendees Only ({stats.attendees})</CardTitle>
-                <CardDescription>List of registered attendees (speakers excluded)</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Attendees Only ({stats.attendees})</CardTitle>
+                    <CardDescription>List of registered attendees (speakers excluded)</CardDescription>
+                  </div>
+                  <Button
+                    onClick={handleCreateNewAttendee}
+                    className="bg-teal-600 hover:bg-teal-700"
+                  >
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Add New Attendee
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent>
                 {registrations.filter(r => r.registrationType === 'attendee').length === 0 ? (
@@ -1045,10 +1094,17 @@ export default function AdminDashboard() {
       {editingRegistration && (
         <EditRegistrationDialog
           registration={editingRegistration}
-          onSave={isCreatingNewSpeaker ? handleSaveNewSpeaker : handleSaveEdit}
+          onSave={
+            isCreatingNewSpeaker 
+              ? handleSaveNewSpeaker 
+              : isCreatingNewAttendee 
+                ? handleSaveNewAttendee 
+                : handleSaveEdit
+          }
           onClose={() => {
             setEditingRegistration(null)
             setIsCreatingNewSpeaker(false)
+            setIsCreatingNewAttendee(false)
           }}
         />
       )}
