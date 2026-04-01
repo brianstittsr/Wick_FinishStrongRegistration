@@ -20,6 +20,7 @@ export default function AdminDashboard() {
   const [editingRegistration, setEditingRegistration] = useState<RegistrationData | null>(null)
   const [isCreatingNewSpeaker, setIsCreatingNewSpeaker] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [hasLoadedServerData, setHasLoadedServerData] = useState(false)
 
   useEffect(() => {
     const authStatus = localStorage.getItem('adminAuthenticated')
@@ -29,6 +30,8 @@ export default function AdminDashboard() {
   }, [])
 
   useEffect(() => {
+    if (hasLoadedServerData) return
+    
     const loadServerData = async () => {
       try {
         const response = await fetch('/api/registrations')
@@ -47,10 +50,11 @@ export default function AdminDashboard() {
         console.error('Failed to load server data:', error)
       } finally {
         setIsLoading(false)
+        setHasLoadedServerData(true)
       }
     }
     loadServerData()
-  }, [])
+  }, [hasLoadedServerData, registrations, addRegistration])
 
   const stats = useMemo(() => {
     const speakers = registrations.filter(r => r.registrationType === 'speaker').length
